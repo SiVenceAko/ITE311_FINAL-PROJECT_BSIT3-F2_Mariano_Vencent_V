@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Barangay extends Model
 {
-    //
+    protected $fillable = ['name'];
+
+    public function crimes()
+    {
+        return $this->hasMany(Crime::class);
+    }
 }
