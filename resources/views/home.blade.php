@@ -36,7 +36,7 @@
         <nav class="nav-links" aria-label="Primary navigation">
             <a href="{{ route('home') }}" class="nav-link active">Home</a>
             <a href="{{ route('crime-map') }}" class="nav-link">Crime Map</a>
-            <a href="#overview" class="nav-link">Safety Overview</a>
+            <a href="{{ route('analytics-dashboard') }}" class="nav-link">Analytics</a>
             <a href="#features" class="nav-link">Features</a>
         </nav>
 

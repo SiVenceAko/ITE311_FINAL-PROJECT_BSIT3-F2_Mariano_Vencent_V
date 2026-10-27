@@ -51,8 +51,8 @@
                     Crime Map
                 </a>
 
-                <a href="{{ route('home') }}#overview" class="nav-link">
-                    Safety Overview
+                <a href="{{ route('analytics-dashboard') }}" class="nav-link">
+                    Analytics
                 </a>
 
                 <a href="{{ route('home') }}#features" class="nav-link">

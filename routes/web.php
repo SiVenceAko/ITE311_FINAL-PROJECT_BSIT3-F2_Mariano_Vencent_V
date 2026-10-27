@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/crime-map', function () {
     return view('crime-map');
 })->name('crime-map');
+
+Route::get('/analytics', function () {
+    return view('analytics-dashboard');
+})->name('analytics-dashboard');
