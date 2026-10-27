@@ -35,13 +35,13 @@
 
         <nav class="nav-links" aria-label="Primary navigation">
             <a href="{{ route('home') }}" class="nav-link active">Home</a>
-            <a href="#crime-map" class="nav-link">Crime Map</a>
+            <a href="{{ route('crime-map') }}" class="nav-link">Crime Map</a>
             <a href="#overview" class="nav-link">Safety Overview</a>
             <a href="#features" class="nav-link">Features</a>
         </nav>
 
         <div class="nav-actions">
-            <a href="#crime-map" class="btn btn-primary">
+            <a href="{{ route('crime-map') }}" class="btn btn-primary">
                 Explore Map
 
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -90,7 +90,7 @@
 
                 <div class="hero-actions">
 
-                    <a href="#crime-map" class="btn btn-primary">
+                    <a href="{{ route('crime-map') }}" class="btn btn-primary">
                         Explore Crime Map
 
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
