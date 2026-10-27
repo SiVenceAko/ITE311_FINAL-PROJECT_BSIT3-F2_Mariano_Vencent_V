@@ -1107,3 +1107,192 @@
         flex-direction: column;
     }
 }
+
+/* =========================================================
+   Incident Details Modal
+   ========================================================= */
+
+.incident-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity var(--transition),
+        visibility var(--transition);
+}
+
+.incident-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.incident-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 20, 38, 0.72);
+    backdrop-filter: blur(4px);
+}
+
+.incident-modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 560px);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(18px) scale(0.98);
+    transition: transform var(--transition);
+}
+
+.incident-modal.is-open .incident-modal-dialog {
+    transform: translateY(0) scale(1);
+}
+
+.incident-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 26px 28px 22px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.incident-modal-header h2 {
+    margin: 6px 0 0;
+    color: var(--color-text-primary);
+    font-size: 1.45rem;
+}
+
+.incident-modal-close {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: var(--color-background);
+    color: var(--color-text-secondary);
+    font-family: inherit;
+    font-size: 1.7rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+}
+
+.incident-modal-close:hover {
+    background: var(--color-accent-100);
+    border-color: rgba(201, 63, 63, 0.2);
+    color: var(--color-accent-600);
+}
+
+.incident-modal-body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 26px 28px;
+}
+
+.incident-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-background);
+}
+
+.incident-detail-item span {
+    color: var(--color-text-muted);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.incident-detail-item strong {
+    color: var(--color-text-primary);
+    font-size: 0.96rem;
+    overflow-wrap: anywhere;
+}
+
+.incident-modal-notice {
+    grid-column: 1 / -1;
+    padding: 17px 18px;
+    border: 1px solid rgba(40, 123, 184, 0.16);
+    border-radius: var(--radius-md);
+    background: rgba(40, 123, 184, 0.07);
+}
+
+.incident-modal-notice strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--color-primary-700);
+    font-size: 0.88rem;
+}
+
+.incident-modal-notice p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.86rem;
+    line-height: 1.65;
+}
+
+.incident-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 28px 26px;
+    border-top: 1px solid var(--color-border);
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   Modal Responsive
+   ========================================================= */
+
+@media (max-width: 600px) {
+    .incident-modal {
+        padding: 16px;
+    }
+
+    .incident-modal-dialog {
+        max-height: calc(100vh - 32px);
+    }
+
+    .incident-modal-header {
+        padding: 22px 20px 18px;
+    }
+
+    .incident-modal-body {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .incident-modal-footer {
+        padding: 18px 20px 22px;
+    }
+
+    .incident-modal-footer .btn {
+        width: 100%;
+    }
+}

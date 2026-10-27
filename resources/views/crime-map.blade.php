@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta
         name="description"
         content="Explore sample crime incident locations and safety information across Victoria City."
@@ -145,7 +146,12 @@
                     </div>
 
                     <div class="map-summary">
-                        <span class="map-summary-number">6</span>
+                        <span
+                            class="map-summary-number"
+                            id="visible-incident-count"
+                        >
+                            3
+                        </span>
 
                         <span class="map-summary-label">
                             Visible sample incidents
@@ -207,6 +213,7 @@
                                     type="search"
                                     id="location-search"
                                     placeholder="Search barangay or area"
+                                    autocomplete="off"
                                 >
                             </div>
                         </div>
@@ -291,8 +298,8 @@
                             </svg>
 
                             <p>
-                                Filters currently represent the planned
-                                front-end experience using sample data.
+                                Filters currently use sample front-end incident
+                                data for demonstration purposes.
                             </p>
                         </div>
 
@@ -359,7 +366,8 @@
                             <button
                                 type="button"
                                 class="incident-marker high marker-one"
-                                aria-label="Sample high risk incident"
+                                data-marker-id="002"
+                                aria-label="View robbery incident in North Area"
                             >
                                 <span></span>
                             </button>
@@ -367,7 +375,8 @@
                             <button
                                 type="button"
                                 class="incident-marker moderate marker-two"
-                                aria-label="Sample moderate risk incident"
+                                data-marker-id="001"
+                                aria-label="View theft incident in Central Area"
                             >
                                 <span></span>
                             </button>
@@ -375,7 +384,8 @@
                             <button
                                 type="button"
                                 class="incident-marker monitored marker-three"
-                                aria-label="Sample monitored incident"
+                                data-marker-id="003"
+                                aria-label="View vandalism incident in South Area"
                             >
                                 <span></span>
                             </button>
@@ -383,7 +393,7 @@
                             <button
                                 type="button"
                                 class="incident-marker high marker-four"
-                                aria-label="Sample high risk incident"
+                                aria-label="Decorative sample high risk marker"
                             >
                                 <span></span>
                             </button>
@@ -391,7 +401,7 @@
                             <button
                                 type="button"
                                 class="incident-marker moderate marker-five"
-                                aria-label="Sample moderate risk incident"
+                                aria-label="Decorative sample moderate risk marker"
                             >
                                 <span></span>
                             </button>
@@ -399,7 +409,7 @@
                             <button
                                 type="button"
                                 class="incident-marker monitored marker-six"
-                                aria-label="Sample monitored incident"
+                                aria-label="Decorative sample monitored marker"
                             >
                                 <span></span>
                             </button>
@@ -407,11 +417,17 @@
 
                             {{-- Map Zoom Controls --}}
                             <div class="map-zoom-controls">
-                                <button type="button" aria-label="Zoom in">
+                                <button
+                                    type="button"
+                                    aria-label="Zoom in"
+                                >
                                     +
                                 </button>
 
-                                <button type="button" aria-label="Zoom out">
+                                <button
+                                    type="button"
+                                    aria-label="Zoom out"
+                                >
                                     −
                                 </button>
                             </div>
@@ -479,8 +495,11 @@
                         </p>
                     </div>
 
-                    <span class="incident-count">
-                        6 sample records
+                    <span
+                        class="incident-count"
+                        id="incident-count-label"
+                    >
+                        3 sample records
                     </span>
 
                 </div>
@@ -497,7 +516,16 @@
                     </div>
 
 
-                    <article class="incident-row">
+                    {{-- Sample Incident #001 --}}
+                    <article
+                        class="incident-row"
+                        data-incident-row
+                        data-id="001"
+                        data-type="theft"
+                        data-location="central area"
+                        data-date="2026-10-24"
+                        data-risk="moderate"
+                    >
                         <div class="incident-type">
                             <span class="incident-icon theft">
                                 <svg
@@ -530,13 +558,23 @@
                         <button
                             type="button"
                             class="incident-view-button"
+                            data-view-incident="001"
                         >
                             View Details
                         </button>
                     </article>
 
 
-                    <article class="incident-row">
+                    {{-- Sample Incident #002 --}}
+                    <article
+                        class="incident-row"
+                        data-incident-row
+                        data-id="002"
+                        data-type="robbery"
+                        data-location="north area"
+                        data-date="2026-10-21"
+                        data-risk="high"
+                    >
                         <div class="incident-type">
                             <span class="incident-icon robbery">
                                 <svg
@@ -571,13 +609,23 @@
                         <button
                             type="button"
                             class="incident-view-button"
+                            data-view-incident="002"
                         >
                             View Details
                         </button>
                     </article>
 
 
-                    <article class="incident-row">
+                    {{-- Sample Incident #003 --}}
+                    <article
+                        class="incident-row"
+                        data-incident-row
+                        data-id="003"
+                        data-type="vandalism"
+                        data-location="south area"
+                        data-date="2026-10-18"
+                        data-risk="monitored"
+                    >
                         <div class="incident-type">
                             <span class="incident-icon monitored">
                                 <svg
@@ -611,6 +659,7 @@
                         <button
                             type="button"
                             class="incident-view-button"
+                            data-view-incident="003"
                         >
                             View Details
                         </button>
@@ -667,6 +716,95 @@
 
 
     {{-- Footer --}}
+        {{-- Incident Details Modal --}}
+    <div
+        class="incident-modal"
+        id="incident-modal"
+        aria-hidden="true"
+    >
+        <div
+            class="incident-modal-backdrop"
+            data-close-incident-modal
+        ></div>
+
+        <div
+            class="incident-modal-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="incident-modal-title"
+        >
+            <div class="incident-modal-header">
+                <div>
+                    <span class="section-eyebrow">
+                        Sample Incident
+                    </span>
+
+                    <h2 id="incident-modal-title">
+                        Incident Details
+                    </h2>
+                </div>
+
+                <button
+                    type="button"
+                    class="incident-modal-close"
+                    data-close-incident-modal
+                    aria-label="Close incident details"
+                >
+                    &times;
+                </button>
+            </div>
+
+            <div class="incident-modal-body">
+
+                <div class="incident-detail-item">
+                    <span>Incident ID</span>
+                    <strong id="modal-incident-id">—</strong>
+                </div>
+
+                <div class="incident-detail-item">
+                    <span>Crime Type</span>
+                    <strong id="modal-incident-type">—</strong>
+                </div>
+
+                <div class="incident-detail-item">
+                    <span>Location</span>
+                    <strong id="modal-incident-location">—</strong>
+                </div>
+
+                <div class="incident-detail-item">
+                    <span>Date</span>
+                    <strong id="modal-incident-date">—</strong>
+                </div>
+
+                <div class="incident-detail-item">
+                    <span>Risk Level</span>
+                    <strong id="modal-incident-risk">—</strong>
+                </div>
+
+                <div class="incident-modal-notice">
+                    <strong>Development Notice</strong>
+
+                    <p>
+                        This is sample incident information used for the
+                        front-end demonstration. Actual crime records will
+                        be provided by the backend implementation.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="incident-modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-close-incident-modal
+                >
+                    Close Details
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer class="site-footer">
         <div class="container footer-content">
 
