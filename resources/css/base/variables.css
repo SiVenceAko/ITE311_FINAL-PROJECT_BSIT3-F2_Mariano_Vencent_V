@@ -1,0 +1,50 @@
+:root {
+    /* Brand */
+    --color-primary-950: #071426;
+    --color-primary-900: #0b1f3a;
+    --color-primary-800: #102d50;
+    --color-primary-700: #17436f;
+    --color-primary-600: #1d5f98;
+    --color-primary-500: #287bb8;
+
+    /* Accent */
+    --color-accent-600: #c93f3f;
+    --color-accent-500: #e05252;
+    --color-accent-100: #fdecec;
+
+    /* Safety status */
+    --color-danger: #dc3f3f;
+    --color-warning: #e9a23b;
+    --color-success: #28a36a;
+
+    /* Neutral */
+    --color-white: #ffffff;
+    --color-background: #f5f7fa;
+    --color-surface: #ffffff;
+    --color-border: #e4e9ef;
+
+    --color-text-primary: #142033;
+    --color-text-secondary: #5e6b7c;
+    --color-text-muted: #8893a2;
+
+    /* Typography */
+    --font-primary: "Inter", "Segoe UI", Arial, sans-serif;
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --radius-xl: 30px;
+    --radius-pill: 999px;
+
+    /* Shadows */
+    --shadow-sm: 0 4px 14px rgba(15, 31, 51, 0.06);
+    --shadow-md: 0 12px 35px rgba(15, 31, 51, 0.10);
+    --shadow-lg: 0 22px 60px rgba(7, 20, 38, 0.14);
+
+    /* Layout */
+    --container-width: 1180px;
+
+    /* Transition */
+    --transition: 180ms ease;
+}
