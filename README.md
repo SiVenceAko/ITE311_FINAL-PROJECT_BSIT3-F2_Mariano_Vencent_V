@@ -2,8 +2,8 @@
 
 ## Student Information
 
-**Student Name:** Vencent V. Mariano  
-**Course and Section:** BSIT 3-F2
+**Student Name:** Vencent V. Mariano & Ed Mark Macauyam.
+**Course and Section:** ITE311 - BSIT 3-F2
 
 ## Project Description
 
@@ -13,10 +13,10 @@ Victoria City Crime Mapping System is a web-based spatial application designed t
 
 - Laravel
 - PHP
+- MySQL
 - HTML
 - CSS
 - JavaScript
-- Winter CMS
 - Git
 - GitHub
 
