@@ -1,9 +1,16 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Statamic\Facades\GlobalSet;
 
 Route::get('/', function () {
-    return view('home');
+    $homepage = GlobalSet::findByHandle('homepage')
+        ?->inDefaultSite();
+
+    return view('home', [
+        'homepage' => $homepage,
+    ]);
 })->name('home');
 
 Route::get('/crime-map', function () {

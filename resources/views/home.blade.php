@@ -1,12 +1,24 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    @cascade(['homepage' => null])
+
+    @php
+        $homepageContent = $homepage ?? null;
+
+        $heroTitle = $homepageContent?->hero_title
+            ?? 'Know Your City. Understand Your Safety.';
+
+        $heroTitleParts = preg_split('/(?<=\.)\s+/', trim($heroTitle), 2);
+    @endphp
+
     <meta
         name="description"
-        content="Victoria City Crime Mapping System - Explore crime incidents, safety trends, and high-risk areas across Victoria City."
+        content="{{ $homepageContent?->hero_description ?? 'Victoria City Crime Mapping System - Explore crime incidents, safety trends, and high-risk areas across Victoria City.' }}"
     >
 
     <title>Victoria City Crime Mapping System</title>
@@ -74,24 +86,25 @@
 
                 <div class="hero-eyebrow">
                     <span class="hero-eyebrow-dot"></span>
-                    Victoria City Public Safety
+                    {{ $homepageContent?->hero_eyebrow ?? 'VICTORIA CITY PUBLIC SAFETY' }}
                 </div>
 
                 <h1 class="hero-title">
-                    Know Your City.
-                    <span>Understand Your Safety.</span>
+                    {{ $heroTitleParts[0] ?? $heroTitle }}
+
+                    @if (!empty($heroTitleParts[1]))
+                        <span>{{ $heroTitleParts[1] }}</span>
+                    @endif
                 </h1>
 
                 <p class="hero-description">
-                    Explore reported crime incidents, identify high-risk areas,
-                    and understand neighborhood safety trends through an
-                    accessible visual crime mapping platform for Victoria City.
+                    {{ $homepageContent?->hero_description ?? 'Explore reported crime incidents, identify high-risk areas, and understand neighborhood safety trends through an accessible visual crime mapping platform for Victoria City.' }}
                 </p>
 
                 <div class="hero-actions">
 
                     <a href="{{ route('crime-map') }}" class="btn btn-primary">
-                        Explore Crime Map
+                        {{ $homepageContent?->primary_button_label ?? 'Explore Crime Map' }}
 
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M13 6l6 6-6 6"/>
@@ -99,7 +112,7 @@
                     </a>
 
                     <a href="#overview" class="btn btn-secondary">
-                        View Safety Overview
+                        {{ $homepageContent?->secondary_button_label ?? 'View Safety Overview' }}
                     </a>
 
                 </div>
@@ -309,13 +322,11 @@
                     </span>
 
                     <h2>
-                        Better information helps communities make more informed decisions.
+                        {{ $homepageContent?->safety_banner_title ?? 'Better information helps communities make more informed decisions.' }}
                     </h2>
 
                     <p>
-                        The Victoria City Crime Mapping System presents public
-                        safety information through maps, filters, heatmaps, and
-                        visual analytics in one accessible platform.
+                        {{ $homepageContent?->safety_banner_description ?? 'The Victoria City Crime Mapping System presents public safety information through maps, filters, heatmaps, and visual analytics in one accessible platform.' }}
                     </p>
 
                 </div>
@@ -350,7 +361,7 @@
 
         <div class="footer-status">
             <span class="footer-status-dot"></span>
-            Front-end demonstration
+            {{ $homepageContent?->footer_status ?? 'Front-end demonstration' }}
         </div>
 
     </div>

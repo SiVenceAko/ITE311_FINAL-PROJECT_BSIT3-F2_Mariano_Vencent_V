@@ -1,0 +1,55 @@
+title: 'Homepage Content'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: hero_eyebrow
+            field:
+              type: text
+              display: 'Hero Eyebrow'
+              instructions: 'Small introductory text above the homepage title'
+          -
+            handle: hero_title
+            field:
+              type: text
+              display: 'Hero Title'
+              instructions: 'Main heading displayed in the homepage hero section'
+          -
+            handle: hero_description
+            field:
+              type: textarea
+              display: 'Hero Description'
+              instructions: 'Description displayed below the homepage hero title'
+          -
+            handle: primary_button_label
+            field:
+              type: text
+              display: 'Primary Button Label'
+              instructions: 'Text displayed on the primary homepage button'
+          -
+            handle: secondary_button_label
+            field:
+              type: text
+              display: 'Secondary Button Label'
+              instructions: 'Text displayed on the secondary homepage button'
+          -
+            handle: safety_banner_title
+            field:
+              type: text
+              display: 'Safety Banner Title'
+              instructions: 'Main heading displayed in the homepage safety banner'
+          -
+            handle: safety_banner_description
+            field:
+              type: textarea
+              display: 'Safety Banner Description'
+              instructions: 'Supporting paragraph displayed below the safety banner title'
+          -
+            handle: footer_status
+            field:
+              type: text
+              display: 'Footer Status'
+              instructions: 'Small status text displayed in the homepage footer'
