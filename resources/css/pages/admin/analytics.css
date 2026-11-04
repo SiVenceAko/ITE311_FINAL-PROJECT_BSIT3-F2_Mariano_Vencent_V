@@ -1,0 +1,333 @@
+/* =========================================
+   VICTORIA SAFE - ANALYTICS PAGE
+   Page-specific styling
+   ========================================= */
+
+/* PAGE HEADING ACTIONS */
+
+.vs-heading-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vs-heading-actions .vs-button {
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+/* SUMMARY CARDS */
+
+.vs-content > .vs-stats-grid {
+    margin-bottom: 22px;
+}
+
+.vs-content > .vs-stats-grid .vs-stat-card {
+    display: flex;
+    min-height: 145px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.vs-content > .vs-stats-grid .vs-stat-top {
+    align-items: center;
+}
+
+.vs-stat-label {
+    color: #738196;
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.vs-content > .vs-stats-grid .vs-stat-icon {
+    display: grid;
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 9px;
+    background: #edf3ff;
+    color: #4d7cce;
+    font-size: 16px;
+}
+
+.vs-content > .vs-stats-grid .vs-stat-card:nth-child(2) .vs-stat-icon {
+    background: #e9f8ef;
+    color: #24a46a;
+}
+
+.vs-content > .vs-stats-grid .vs-stat-card:nth-child(3) .vs-stat-icon {
+    background: #fff0f0;
+    color: #e25d5d;
+}
+
+.vs-content > .vs-stats-grid .vs-stat-card:nth-child(4) .vs-stat-icon {
+    background: #f0edff;
+    color: #8064c9;
+}
+
+.vs-stat-value {
+    display: block;
+    margin: 12px 0 4px;
+    color: #1b2e47;
+    font-size: 29px;
+    font-weight: 750;
+    letter-spacing: -1px;
+}
+
+.vs-stat-note {
+    display: block;
+    color: #929eae;
+    font-size: 10px;
+}
+
+/* PANEL HEADER */
+
+.vs-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.vs-panel-header h2 {
+    margin: 0 0 6px;
+    color: #23364f;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.vs-panel-header p {
+    margin: 0;
+    color: #929eae;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.vs-panel-count {
+    flex-shrink: 0;
+    padding: 7px 10px;
+    border: 1px solid #e5ebf3;
+    border-radius: 6px;
+    background: #f7f9fc;
+    color: #64758c;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* ANALYTICS FILTERS */
+
+.vs-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.vs-filter-bar select {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    padding: 0 30px 0 12px;
+    border: 1px solid #e3e9f1;
+    border-radius: 7px;
+    background: #fff;
+    color: #718096;
+    font: inherit;
+    font-size: 10px;
+}
+
+.vs-filter-bar select:disabled {
+    cursor: not-allowed;
+    opacity: .75;
+}
+
+/* CRIME ACTIVITY CHART */
+
+.vs-chart-placeholder-content {
+    display: flex;
+    width: min(390px, calc(100% - 32px));
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    border: 1px solid #edf0f4;
+    border-radius: 11px;
+    background: #fff;
+    text-align: center;
+}
+
+.vs-chart-placeholder-content .vs-chart-placeholder-icon {
+    display: grid;
+    width: 49px;
+    height: 49px;
+    margin-bottom: 13px;
+    place-items: center;
+    border-radius: 13px;
+    background: #edf3ff;
+    color: #4d7cce;
+    font-size: 23px;
+}
+
+.vs-chart-placeholder-content h3 {
+    margin: 0;
+    color: #46566c;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.vs-chart-placeholder-content p {
+    max-width: 300px;
+    margin: 8px 0 13px;
+    color: #99a4b2;
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+.vs-chart-placeholder-content .vs-demo-label {
+    display: inline-block;
+}
+
+/* DISTRIBUTION AND AREA INSIGHTS */
+
+.vs-analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 19px;
+    margin-bottom: 20px;
+}
+
+.vs-analytics-grid .vs-panel {
+    min-width: 0;
+}
+
+.vs-analytics-grid .vs-panel-header {
+    min-height: 38px;
+}
+
+.vs-chart-placeholder-small {
+    display: flex;
+    min-height: 230px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px dashed #dce4ef;
+    border-radius: 9px;
+    background: #fafbfd;
+}
+
+.vs-chart-placeholder-small .vs-chart-placeholder-content {
+    width: 100%;
+    padding: 15px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.vs-chart-placeholder-small .vs-chart-placeholder-content p {
+    margin-bottom: 0;
+}
+
+/* ANALYTICS INFORMATION */
+
+.vs-guidelines-panel {
+    margin-top: 20px;
+}
+
+.vs-guidelines-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.vs-guideline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #edf0f4;
+    border-radius: 9px;
+    background: #fafbfd;
+}
+
+.vs-guideline-icon {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 8px;
+    background: #edf3ff;
+    color: #4d7cce;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.vs-guideline-item:nth-child(2) .vs-guideline-icon {
+    background: #f0edff;
+    color: #8064c9;
+}
+
+.vs-guideline-item:nth-child(3) .vs-guideline-icon {
+    background: #e9f8ef;
+    color: #24a46a;
+}
+
+.vs-guideline-item strong {
+    display: block;
+    margin: 2px 0 6px;
+    color: #34455b;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.vs-guideline-item p {
+    margin: 0;
+    color: #8996a7;
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 1000px) {
+    .vs-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vs-guidelines-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .vs-heading-actions {
+        width: 100%;
+    }
+
+    .vs-heading-actions .vs-button {
+        width: 100%;
+    }
+
+    .vs-filter-bar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .vs-panel-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .vs-chart-placeholder-small {
+        min-height: 200px;
+    }
+
+    .vs-guideline-item {
+        padding: 13px;
+    }
+}

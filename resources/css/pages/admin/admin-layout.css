@@ -1,0 +1,828 @@
+
+/* =========================================
+   VICTORIA SAFE - ADMIN SHARED LAYOUT
+   Desktop + Responsive Mobile Navigation
+   ========================================= */
+
+.vs-admin {
+    --vs-navy: #142b4a;
+    --vs-navy-dark: #10223b;
+    --vs-blue: #2563eb;
+    --vs-text: #1e293b;
+    --vs-muted: #78869a;
+    --vs-border: #e8edf3;
+    --vs-background: #f5f7fa;
+
+    margin: 0;
+    min-height: 100vh;
+    background: var(--vs-background);
+    color: var(--vs-text);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+}
+
+.vs-admin *,
+.vs-admin *::before,
+.vs-admin *::after {
+    box-sizing: border-box;
+}
+
+.vs-admin a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.vs-admin button {
+    font: inherit;
+}
+
+/* =========================================
+   MAIN LAYOUT
+   ========================================= */
+
+.vs-admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================================
+   MOBILE HEADER - HIDDEN ON DESKTOP
+   ========================================= */
+
+.vs-mobile-header {
+    display: none;
+}
+
+.vs-mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+    color: #fff;
+}
+
+.vs-mobile-brand .vs-brand-icon {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+}
+
+.vs-mobile-brand .vs-brand-text {
+    min-width: 0;
+}
+
+.vs-mobile-brand .vs-brand-text strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 750;
+    letter-spacing: -.4px;
+}
+
+.vs-mobile-brand .vs-brand-text span {
+    display: block;
+    color: #b8c8dc;
+    font-size: 9px;
+    font-weight: 650;
+    letter-spacing: 1.1px;
+}
+
+/* =========================================
+   HAMBURGER BUTTON
+   ========================================= */
+
+.vs-mobile-menu-toggle {
+    display: flex;
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, .09);
+    cursor: pointer;
+    transition: background .25s ease, border-color .25s ease;
+}
+
+.vs-mobile-menu-toggle:hover {
+    border-color: rgba(255, 255, 255, .35);
+    background: rgba(255, 255, 255, .17);
+}
+
+.vs-hamburger-line {
+    display: block;
+    width: 19px;
+    height: 2px;
+    border-radius: 5px;
+    background: #fff;
+    transition:
+        transform .3s ease,
+        opacity .2s ease,
+        width .3s ease;
+}
+
+.vs-mobile-menu-toggle[aria-expanded="true"] .vs-hamburger-line:first-child {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.vs-mobile-menu-toggle[aria-expanded="true"] .vs-hamburger-line:nth-child(2) {
+    width: 0;
+    opacity: 0;
+}
+
+.vs-mobile-menu-toggle[aria-expanded="true"] .vs-hamburger-line:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =========================================
+   SIDEBAR
+   ========================================= */
+
+.vs-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 20;
+    display: flex;
+    width: 260px;
+    min-height: 100vh;
+    flex-direction: column;
+    padding: 28px 18px 20px;
+    overflow-y: auto;
+    background: var(--vs-navy);
+    color: #fff;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,.2) transparent;
+}
+
+.vs-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 8px 34px;
+}
+
+.vs-brand-icon {
+    display: grid;
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+.vs-brand-text strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 750;
+    letter-spacing: -.5px;
+}
+
+.vs-brand-text span {
+    display: block;
+    color: #a9bad0;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
+
+.vs-sidebar-close {
+    display: none;
+}
+
+/* =========================================
+   SIDEBAR NAVIGATION
+   ========================================= */
+
+.vs-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.vs-nav-section {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.vs-nav-heading {
+    margin: 0 10px 5px;
+    color: #8fa4bd;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 1.2px;
+}
+
+.vs-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-height: 45px;
+    padding: 0 12px;
+    border-radius: 8px;
+    color: #c3d0df;
+    font-size: 13px;
+    font-weight: 550;
+    transition: background .2s ease, color .2s ease;
+}
+
+.vs-nav-link:hover {
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+}
+
+.vs-nav-link.active {
+    background: #244b78;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: inset 3px 0 #73a8ff;
+}
+
+.vs-nav-icon {
+    display: grid;
+    width: 21px;
+    flex-shrink: 0;
+    place-items: center;
+    color: #a9bfd8;
+    font-size: 18px;
+}
+
+.vs-nav-link.active .vs-nav-icon {
+    color: #fff;
+}
+
+.vs-nav-count {
+    display: grid;
+    min-width: 21px;
+    height: 21px;
+    margin-left: auto;
+    padding: 0 5px;
+    place-items: center;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .13);
+    color: #fff;
+    font-size: 10px;
+}
+
+/* =========================================
+   SIDEBAR BOTTOM
+   ========================================= */
+
+.vs-sidebar-bottom {
+    margin-top: auto;
+    padding-top: 30px;
+}
+
+.vs-workspace-label {
+    margin: 0 8px 12px;
+    color: #8fa4bd;
+    font-size: 9px;
+    font-weight: 750;
+    letter-spacing: 1.2px;
+}
+
+.vs-back-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 8px;
+    color: #a9bad0 !important;
+    font-size: 11px;
+    transition: color .2s ease;
+}
+
+.vs-back-link:hover {
+    color: #fff !important;
+}
+
+/* =========================================
+   MOBILE SIDEBAR OVERLAY
+   ========================================= */
+
+.vs-sidebar-overlay {
+    display: none;
+}
+
+/* =========================================
+   MAIN CONTENT
+   ========================================= */
+
+.vs-main {
+    display: flex;
+    width: calc(100% - 260px);
+    min-width: 0;
+    min-height: 100vh;
+    flex-direction: column;
+    margin-left: 260px;
+}
+
+/* =========================================
+   TOPBAR
+   ========================================= */
+
+.vs-topbar {
+    display: flex;
+    min-height: 75px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 38px;
+    border-bottom: 1px solid var(--vs-border);
+    background: #fff;
+}
+
+.vs-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #8793a4;
+    font-size: 12px;
+}
+
+.vs-breadcrumb strong {
+    color: #26364b;
+    font-weight: 700;
+}
+
+.vs-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.vs-system-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #718096;
+    font-size: 11px;
+}
+
+.vs-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+}
+
+.vs-admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+    border-left: 1px solid var(--vs-border);
+}
+
+.vs-profile-avatar {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 50%;
+    background: #e8efff;
+    color: #2857a2;
+    font-weight: 750;
+}
+
+.vs-admin-profile strong,
+.vs-admin-profile span {
+    display: block;
+}
+
+.vs-admin-profile strong {
+    margin-bottom: 3px;
+    color: #27364a;
+    font-size: 11px;
+}
+
+.vs-admin-profile span {
+    color: #8995a6;
+    font-size: 10px;
+}
+
+/* =========================================
+   PAGE CONTENT CONTAINER
+   ========================================= */
+
+.vs-content {
+    width: 100%;
+    max-width: 1600px;
+    flex: 1;
+    margin: 0 auto;
+    padding: 34px 38px 24px;
+}
+
+/* =========================================
+   SHARED PAGE HEADING
+   ========================================= */
+
+.vs-page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.vs-eyebrow {
+    color: #4777bd;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 1.3px;
+}
+
+.vs-page-heading h1 {
+    margin: 8px 0 7px;
+    color: #172a43;
+    font-size: clamp(24px, 3vw, 29px);
+    font-weight: 750;
+    letter-spacing: -.9px;
+}
+
+.vs-page-heading p {
+    margin: 0;
+    color: #8491a2;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* =========================================
+   WORKSPACE DISPLAY
+   ========================================= */
+
+.vs-date-display {
+    min-width: 155px;
+    padding: 11px 15px;
+    border: 1px solid var(--vs-border);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.vs-date-display span,
+.vs-date-display strong {
+    display: block;
+}
+
+.vs-date-display span {
+    margin-bottom: 5px;
+    color: #8b98a9;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.vs-date-display strong {
+    color: #2a3c53;
+    font-size: 12px;
+}
+
+/* =========================================
+   SHARED FOOTER
+   ========================================= */
+
+.vs-admin-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px 38px 20px;
+    border-top: 1px solid var(--vs-border);
+    color: #9aa5b3;
+    font-size: 9px;
+}
+
+/* =========================================
+   TABLET RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 1150px) and (min-width: 701px) {
+    .vs-sidebar {
+        width: 230px;
+    }
+
+    .vs-main {
+        width: calc(100% - 230px);
+        margin-left: 230px;
+    }
+
+    .vs-content {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+
+    .vs-topbar {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+
+    .vs-admin-footer {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    /* Main layout */
+    .vs-admin-layout {
+        display: block;
+    }
+
+    /* Mobile header */
+    .vs-mobile-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        display: flex;
+        min-height: 72px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 16px;
+        background: linear-gradient(
+            120deg,
+            var(--vs-navy-dark),
+            var(--vs-navy)
+        );
+        box-shadow: 0 4px 16px rgba(16, 34, 59, .14);
+    }
+
+    /* Hide desktop brand inside sidebar */
+    .vs-sidebar > .vs-brand {
+        padding: 3px 4px 27px;
+    }
+
+    /* Sidebar becomes off-canvas */
+    .vs-sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        z-index: 60;
+        display: flex;
+        width: min(320px, 86vw);
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        flex-direction: column;
+        padding: 24px 18px 22px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border-radius: 0 18px 18px 0;
+        box-shadow: 15px 0 45px rgba(10, 25, 45, .22);
+        transform: translateX(-105%);
+        visibility: hidden;
+        transition:
+            transform .38s cubic-bezier(.22, 1, .36, 1),
+            visibility .38s ease;
+        will-change: transform;
+    }
+
+    .vs-mobile-menu-open .vs-sidebar {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    /* Sidebar close button */
+    .vs-sidebar-close {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+        margin-left: auto;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 9px;
+        background: rgba(255, 255, 255, .08);
+        color: #fff;
+        font-size: 25px;
+        line-height: 1;
+        cursor: pointer;
+        transition:
+            background .2s ease,
+            transform .2s ease;
+    }
+
+    .vs-sidebar-close:hover {
+        transform: rotate(90deg);
+        background: rgba(255, 255, 255, .17);
+    }
+
+    /* Navigation */
+    .vs-sidebar-nav {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .vs-nav-section {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .vs-nav-heading {
+        width: auto;
+        margin: 0 10px 7px;
+    }
+
+    .vs-nav-link {
+        min-height: 47px;
+        gap: 13px;
+        padding: 0 13px;
+        border-radius: 9px;
+        font-size: 13px;
+    }
+
+    .vs-nav-icon {
+        width: 22px;
+        font-size: 18px;
+    }
+
+    /* Staggered entrance animation */
+    .vs-mobile-menu-open .vs-nav-section {
+        animation: vs-nav-enter .4s ease both;
+    }
+
+    .vs-mobile-menu-open .vs-nav-section:nth-child(1) {
+        animation-delay: .07s;
+    }
+
+    .vs-mobile-menu-open .vs-nav-section:nth-child(2) {
+        animation-delay: .13s;
+    }
+
+    .vs-mobile-menu-open .vs-nav-section:nth-child(3) {
+        animation-delay: .19s;
+    }
+
+    @keyframes vs-nav-enter {
+        from {
+            opacity: 0;
+            transform: translateX(-12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Sidebar bottom */
+    .vs-sidebar-bottom {
+        margin-top: auto;
+        padding-top: 30px;
+    }
+
+    /* Dark overlay */
+    .vs-sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: block;
+        background: rgba(8, 20, 36, .56);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        transition:
+            opacity .32s ease,
+            visibility .32s ease;
+    }
+
+    .vs-mobile-menu-open .vs-sidebar-overlay {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Prevent background scrolling while menu is open */
+    .vs-mobile-menu-open {
+        overflow: hidden;
+    }
+
+    /* Main content */
+    .vs-main {
+        width: 100%;
+        min-height: calc(100vh - 72px);
+        margin-left: 0;
+    }
+
+    /* Topbar */
+    .vs-topbar {
+        min-height: 59px;
+        padding: 0 17px;
+    }
+
+    .vs-topbar-right {
+        gap: 12px;
+    }
+
+    .vs-system-status {
+        display: none;
+    }
+
+    .vs-admin-profile {
+        padding-left: 12px;
+    }
+
+    /* Content */
+    .vs-content {
+        padding: 25px 16px 20px;
+    }
+
+    .vs-page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .vs-date-display {
+        width: 100%;
+    }
+
+    /* Footer */
+    .vs-admin-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+        padding: 15px 16px 20px;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE SCREENS
+   ========================================= */
+
+@media (max-width: 390px) {
+    .vs-mobile-header {
+        min-height: 66px;
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .vs-mobile-brand {
+        gap: 9px;
+    }
+
+    .vs-mobile-brand .vs-brand-icon {
+        width: 39px;
+        height: 39px;
+    }
+
+    .vs-mobile-brand .vs-brand-text strong {
+        font-size: 14px;
+    }
+
+    .vs-mobile-brand .vs-brand-text span {
+        font-size: 8px;
+        letter-spacing: .8px;
+    }
+
+    .vs-mobile-menu-toggle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .vs-content {
+        padding-right: 13px;
+        padding-left: 13px;
+    }
+
+    .vs-admin-profile strong {
+        font-size: 10px;
+    }
+}
+
+/* =========================================
+   ACCESSIBILITY - REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .vs-sidebar,
+    .vs-sidebar-overlay,
+    .vs-mobile-menu-toggle,
+    .vs-hamburger-line,
+    .vs-nav-section {
+        animation: none !important;
+        transition: none !important;
+    }
+}

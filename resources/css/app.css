@@ -7,6 +7,16 @@
 @import "./components/cards.css";
 @import "./components/footer.css";
 
+/* PUBLIC PAGES */
 @import "./pages/home.css";
 @import "./pages/crime-map.css";
 @import "./pages/analytics-dashboard.css";
+
+/* ADMIN WORKSPACE */
+@import "./pages/admin/admin-layout.css";
+@import "./pages/admin/dashboard.css";
+@import "./pages/admin/crime-requests.css";
+@import "./pages/admin/duplicate-review.css";
+@import "./pages/admin/approved-incidents.css";
+@import "./pages/admin/crime-map.css";
+@import "./pages/admin/analytics.css";
