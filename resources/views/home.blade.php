@@ -37,6 +37,7 @@
             <a href="{{ route('home') }}" class="nav-link active">Home</a>
             <a href="{{ route('crime-map') }}" class="nav-link">Crime Map</a>
             <a href="{{ route('analytics-dashboard') }}" class="nav-link">Analytics</a>
+            <a href="{{ route('crime-reports.create') }}" class="nav-link">Report Incident</a>
             <a href="#features" class="nav-link">Features</a>
         </nav>
 

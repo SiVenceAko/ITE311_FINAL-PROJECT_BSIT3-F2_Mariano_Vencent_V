@@ -1,6 +1,7 @@
 @import "./base/variables.css";
 @import "./base/reset.css";
 @import "./base/global.css";
+@import "leaflet/dist/leaflet.css";
 
 @import "./components/navbar.css";
 @import "./components/buttons.css";
