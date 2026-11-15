@@ -105,6 +105,22 @@
                                         <a href="{{ cp_route('dashboard') }}" class="vs-nav-link">
                         <span>Content Management</span>
                     </a>
+
+                    <a href="{{ route('statamic.cp.globals.variables.edit', 'homepage') }}" class="vs-nav-link {{ request()->is('cp/globals/homepage*') ? 'active' : '' }}">
+                        <span>Homepage Content</span>
+                    </a>
+
+                    <a href="{{ route('statamic.cp.globals.variables.edit', 'crime_map') }}" class="vs-nav-link {{ request()->is('cp/globals/crime_map*') ? 'active' : '' }}">
+                        <span>Crime Map Content</span>
+                    </a>
+
+                    <a href="{{ route('statamic.cp.globals.variables.edit', 'analytics') }}" class="vs-nav-link {{ request()->is('cp/globals/analytics*') ? 'active' : '' }}">
+                        <span>Analytics Content</span>
+                    </a>
+
+                    <a href="{{ route('statamic.cp.globals.variables.edit', 'report_incident') }}" class="vs-nav-link {{ request()->is('cp/globals/report_incident*') ? 'active' : '' }}">
+                        <span>Report Incident Content</span>
+                    </a>
                 </div>
 
             </nav>

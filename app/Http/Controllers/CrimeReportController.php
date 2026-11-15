@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barangay;
 use App\Models\Crime;
+use Statamic\Facades\GlobalSet;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -14,7 +15,9 @@ class CrimeReportController extends Controller
     {
         $barangays = Barangay::query()->orderBy('name')->get(['id', 'name']);
 
-        return view('crime-reports.create', compact('barangays'));
+        $reportContent = GlobalSet::findByHandle('report_incident')?->inDefaultSite();
+
+        return view('crime-reports.create', compact('barangays', 'reportContent'));
     }
 
     public function store(Request $request): RedirectResponse

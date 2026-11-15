@@ -107,18 +107,16 @@
 
                     <div class="hero-eyebrow">
                         <span class="hero-eyebrow-dot"></span>
-                        Crime Intelligence
+                        {{ $crimeMapContent?->hero_eyebrow ?? 'Crime Intelligence' }}
                     </div>
 
                     <h1 class="crime-map-title">
-                        Explore Crime Activity
-                        <span>Across Victoria, Oriental Mindoro.</span>
+                        {{ $crimeMapContent?->hero_title ?? 'Explore Crime Activity' }}
+                        <span>{{ $crimeMapContent?->hero_title_span ?? 'Across Victoria, Oriental Mindoro.' }}</span>
                     </h1>
 
                     <p class="crime-map-description">
-                        Review incident records from the database, filter reports,
-                        and explore the information currently available for each
-                        recorded barangay.
+                        {{ $crimeMapContent?->hero_description ?? 'Review incident records from the database, filter reports, and explore the information currently available for each recorded barangay.' }}
                     </p>
 
                 </div>
@@ -127,8 +125,8 @@
                     <span class="crime-map-status-dot"></span>
 
                     <div>
-                        <strong>Database-backed records</strong>
-                        <span>Incident details are loaded from the database</span>
+                        <strong>{{ $crimeMapContent?->hero_status_title ?? 'Database-backed records' }}</strong>
+                        <span>{{ $crimeMapContent?->hero_status_description ?? 'Incident details are loaded from the database' }}</span>
                     </div>
                 </div>
 
@@ -143,12 +141,12 @@
                 <div class="crime-map-toolbar">
 
                     <div>
-                        <span class="section-eyebrow">Map Explorer</span>
+                        <span class="section-eyebrow">{{ $crimeMapContent?->toolbar_eyebrow ?? 'Map Explorer' }}</span>
 
-                        <h2>Crime Incident Map</h2>
+                        <h2>{{ $crimeMapContent?->toolbar_title ?? 'Crime Incident Map' }}</h2>
 
                         <p>
-                            Use the available filters to explore recorded incidents.
+                            {{ $crimeMapContent?->toolbar_description ?? 'Use the available filters to explore recorded incidents.' }}
                         </p>
                     </div>
 
@@ -497,12 +495,11 @@
                         <span>Development Notice</span>
 
                         <h2>
-                            Crime reports shown here are database records.
+                            {{ $crimeMapContent?->safety_notice_title ?? 'Crime reports shown here are database records.' }}
                         </h2>
 
                         <p>
-                            Only incidents with saved coordinates appear on the
-                            map. Confirm reports through official sources.
+                            {{ $crimeMapContent?->safety_notice_description ?? 'Only incidents with saved coordinates appear on the map. Confirm reports through official sources.' }}
                         </p>
                     </div>
 
@@ -617,7 +614,7 @@
 
             <div class="footer-status">
                 <span class="footer-status-dot"></span>
-                Database-backed records
+                {{ $crimeMapContent?->footer_status ?? 'Database-backed records' }}
             </div>
 
         </div>

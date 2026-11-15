@@ -106,17 +106,16 @@
                 <div>
                     <div class="hero-eyebrow">
                         <span class="hero-eyebrow-dot"></span>
-                        Crime Intelligence
+                        {{ $analyticsContent?->hero_eyebrow ?? 'Crime Intelligence' }}
                     </div>
 
                     <h1 class="analytics-title">
-                        Crime Analytics
-                        <span>Dashboard.</span>
+                        {{ $analyticsContent?->hero_title ?? 'Crime Analytics' }}
+                        <span>{{ $analyticsContent?->hero_title_span ?? 'Dashboard.' }}</span>
                     </h1>
 
                     <p class="analytics-description">
-                        Review crime patterns and area summaries calculated
-                        directly from records stored in the database.
+                        {{ $analyticsContent?->hero_description ?? 'Review crime patterns and area summaries calculated directly from records stored in the database.' }}
                     </p>
                 </div>
 
@@ -124,8 +123,8 @@
                     <span class="analytics-status-dot"></span>
 
                     <div>
-                        <strong>Database-backed analytics</strong>
-                        <span>Statistics are computed from stored reports</span>
+                        <strong>{{ $analyticsContent?->hero_status_title ?? 'Database-backed analytics' }}</strong>
+                        <span>{{ $analyticsContent?->hero_status_description ?? 'Statistics are computed from stored reports' }}</span>
                     </div>
                 </div>
 
@@ -142,14 +141,13 @@
 
                     <div>
                         <span class="section-eyebrow">
-                            Safety Overview
+                            {{ $analyticsContent?->heading_eyebrow ?? 'Safety Overview' }}
                         </span>
 
-                        <h2>Victoria, Oriental Mindoro at a Glance</h2>
+                        <h2>{{ $analyticsContent?->heading_title ?? 'Victoria, Oriental Mindoro at a Glance' }}</h2>
 
                         <p>
-                            A summary of the incident records currently stored
-                            in the project database.
+                            {{ $analyticsContent?->heading_description ?? 'A summary of the incident records currently stored in the project database.' }}
                         </p>
                     </div>
 
@@ -526,12 +524,11 @@
                         <span>Data Notice</span>
 
                         <h2>
-                            Analytics are calculated from stored database records.
+                            {{ $analyticsContent?->notice_title ?? 'Analytics are calculated from stored database records.' }}
                         </h2>
 
                         <p>
-                            Confirm reports with official sources. This dashboard
-                            summarizes stored information and does not verify it.
+                            {{ $analyticsContent?->notice_description ?? 'Confirm reports with official sources. This dashboard summarizes stored information and does not verify it.' }}
                         </p>
                     </div>
 
@@ -560,7 +557,7 @@
 
             <div class="footer-status">
                 <span class="footer-status-dot"></span>
-                Database-backed analytics
+                {{ $analyticsContent?->footer_status ?? 'Database-backed analytics' }}
             </div>
 
         </div>

@@ -1,0 +1,67 @@
+title: 'Crime Map Page Content'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: hero_eyebrow
+            field:
+              type: text
+              display: 'Hero Eyebrow'
+          -
+            handle: hero_title
+            field:
+              type: text
+              display: 'Hero Title'
+          -
+            handle: hero_title_span
+            field:
+              type: text
+              display: 'Hero Title Span'
+          -
+            handle: hero_description
+            field:
+              type: textarea
+              display: 'Hero Description'
+          -
+            handle: hero_status_title
+            field:
+              type: text
+              display: 'Hero Status Title'
+          -
+            handle: hero_status_description
+            field:
+              type: text
+              display: 'Hero Status Description'
+          -
+            handle: toolbar_eyebrow
+            field:
+              type: text
+              display: 'Toolbar Eyebrow'
+          -
+            handle: toolbar_title
+            field:
+              type: text
+              display: 'Toolbar Title'
+          -
+            handle: toolbar_description
+            field:
+              type: textarea
+              display: 'Toolbar Description'
+          -
+            handle: safety_notice_title
+            field:
+              type: text
+              display: 'Safety Notice Title'
+          -
+            handle: safety_notice_description
+            field:
+              type: textarea
+              display: 'Safety Notice Description'
+          -
+            handle: footer_status
+            field:
+              type: text
+              display: 'Footer Status'

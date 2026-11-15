@@ -48,6 +48,40 @@ tabs:
               display: 'Safety Banner Description'
               instructions: 'Supporting paragraph displayed below the safety banner title'
           -
+            handle: features_eyebrow
+            field:
+              type: text
+              display: 'Features Eyebrow'
+          -
+            handle: features_title
+            field:
+              type: text
+              display: 'Features Title'
+          -
+            handle: features_description
+            field:
+              type: textarea
+              display: 'Features Description'
+          -
+            handle: features
+            field:
+              type: replicator
+              display: 'Features'
+              sets:
+                feature:
+                  display: Feature
+                  fields:
+                    -
+                      handle: title
+                      field:
+                        type: text
+                        display: Title
+                    -
+                      handle: description
+                      field:
+                        type: textarea
+                        display: Description
+          -
             handle: footer_status
             field:
               type: text

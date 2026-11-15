@@ -5,4 +5,17 @@ primary_button_label: 'Explore Crime Map'
 secondary_button_label: 'View Safety Overview'
 safety_banner_title: 'Better information helps communities make more informed decisions.'
 safety_banner_description: 'Access public safety information through interactive maps, filters, heatmaps, and analytics to better understand crime activity across Victoria City.'
+features_eyebrow: 'Public Safety Tools'
+features_title: 'Understand safety through clear visual information.'
+features_description: 'Designed to make crime information easier to explore, compare, and understand across Victoria City.'
+features:
+  - type: feature
+    title: 'Interactive Crime Map'
+    description: 'Explore reported incidents geographically and understand where activity occurs across the city.'
+  - type: feature
+    title: 'Crime Heatmaps'
+    description: 'Identify areas with higher concentrations of reported incidents through easy-to-read visual heatmaps.'
+  - type: feature
+    title: 'Safety Trends'
+    description: 'Review patterns by date, crime type, and location to better understand neighborhood safety trends.'
 footer_status: 'Front-end Demonstration'

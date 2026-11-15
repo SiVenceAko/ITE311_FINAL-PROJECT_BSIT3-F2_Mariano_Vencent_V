@@ -1,0 +1,37 @@
+title: 'Report Incident Page Content'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: hero_eyebrow
+            field:
+              type: text
+              display: 'Hero Eyebrow'
+          -
+            handle: hero_title
+            field:
+              type: text
+              display: 'Hero Title'
+          -
+            handle: hero_title_span
+            field:
+              type: text
+              display: 'Hero Title Span'
+          -
+            handle: hero_description
+            field:
+              type: textarea
+              display: 'Hero Description'
+          -
+            handle: privacy_notice
+            field:
+              type: textarea
+              display: 'Privacy Notice'
+          -
+            handle: footer_status
+            field:
+              type: text
+              display: 'Footer Status'

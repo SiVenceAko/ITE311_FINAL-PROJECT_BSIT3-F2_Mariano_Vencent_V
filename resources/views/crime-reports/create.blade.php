@@ -58,15 +58,14 @@
                 <div class="crime-map-hero-copy">
                     <div class="hero-eyebrow">
                         <span class="hero-eyebrow-dot"></span>
-                        Community Report
+                        {{ $reportContent?->hero_eyebrow ?? 'Community Report' }}
                     </div>
                     <h1 class="crime-map-title">
-                        Report an Incident
-                        <span>Victoria, Oriental Mindoro.</span>
+                        {{ $reportContent?->hero_title ?? 'Report an Incident' }}
+                        <span>{{ $reportContent?->hero_title_span ?? 'Victoria, Oriental Mindoro.' }}</span>
                     </h1>
                     <p class="crime-map-description">
-                        Share the incident details and select its location on the map.
-                        Reports are reviewed before appearing publicly.
+                        {{ $reportContent?->hero_description ?? 'Share the incident details and select its location on the map. Reports are reviewed before appearing publicly.' }}
                     </p>
                 </div>
             </div>
@@ -184,8 +183,7 @@
                     </p>
 
                     <div class="report-privacy-notice">
-                        Ang report ay mase-save bilang <strong>pending</strong>. Staff lamang ang maaaring mag-review at mag-apruba.
-                        Hindi ito emergency service; kung may agarang panganib, tumawag sa emergency services.
+                        {{ $reportContent?->privacy_notice ?? 'Ang report ay mase-save bilang pending. Staff lamang ang maaaring mag-review at mag-apruba. Hindi ito emergency service; kung may agarang panganib, tumawag sa emergency services.' }}
                     </div>
 
                     <button class="btn btn-primary report-submit-button" type="submit">
@@ -199,7 +197,7 @@
     <footer class="site-footer">
         <div class="container footer-content">
             <p>&copy; {{ date('Y') }} Victoria, Oriental Mindoro Crime Mapping System</p>
-            <div class="footer-status"><span class="footer-status-dot"></span> Reports require review</div>
+            <div class="footer-status"><span class="footer-status-dot"></span> {{ $reportContent?->footer_status ?? 'Reports require review' }}</div>
         </div>
     </footer>
 </body>

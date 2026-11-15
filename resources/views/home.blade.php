@@ -14,6 +14,15 @@
             ?? 'Know Your City. Understand Your Safety.';
 
         $heroTitleParts = preg_split('/(?<=\.)\s+/', trim($heroTitle), 2);
+
+        $featuresEyebrow = $homepageContent?->features_eyebrow ?? 'Public Safety Tools';
+        $featuresTitle = $homepageContent?->features_title ?? 'Understand safety through clear visual information.';
+        $featuresDescription = $homepageContent?->features_description ?? 'Designed to make crime information easier to explore, compare, and understand across Victoria City.';
+        $features = $homepageContent?->features ?? collect([
+            ['type' => 'feature', 'title' => 'Interactive Crime Map', 'description' => 'Explore reported incidents geographically and understand where activity occurs across the city.'],
+            ['type' => 'feature', 'title' => 'Crime Heatmaps', 'description' => 'Identify areas with higher concentrations of reported incidents through easy-to-read visual heatmaps.'],
+            ['type' => 'feature', 'title' => 'Safety Trends', 'description' => 'Review patterns by date, crime type, and location to better understand neighborhood safety trends.'],
+        ]);
     @endphp
 
     <meta
@@ -241,16 +250,15 @@ Approved incident data is shown from the latest records.
                 <div class="section-heading">
 
                     <span class="section-eyebrow">
-                        Public Safety Tools
+                        {{ $featuresEyebrow }}
                     </span>
 
                     <h2 class="section-title">
-                        Understand safety through clear visual information.
+                        {{ $featuresTitle }}
                     </h2>
 
                     <p class="section-description">
-                        Designed to make crime information easier to explore,
-                        compare, and understand across Victoria City.
+                        {{ $featuresDescription }}
                     </p>
 
                 </div>
@@ -260,63 +268,24 @@ Approved incident data is shown from the latest records.
 
             <div class="features-grid">
 
-                <article class="feature-card">
+                @foreach ($features as $feature)
+                    <article class="feature-card">
 
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                            <path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/>
-                            <path d="M9 3v15M15 6v15"/>
-                        </svg>
-                    </div>
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/>
+                                <path d="M9 3v15M15 6v15"/>
+                            </svg>
+                        </div>
 
-                    <h3>Interactive Crime Map</h3>
+                        <h3>{{ $feature['title'] ?? '' }}</h3>
 
-                    <p>
-                        Explore reported incidents geographically and understand
-                        where activity occurs across the city.
-                    </p>
+                        <p>
+                            {{ $feature['description'] ?? '' }}
+                        </p>
 
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                            <circle cx="12" cy="12" r="3"/>
-                            <circle cx="12" cy="12" r="7"/>
-                            <circle cx="12" cy="12" r="10"/>
-                        </svg>
-                    </div>
-
-                    <h3>Crime Heatmaps</h3>
-
-                    <p>
-                        Identify areas with higher concentrations of reported
-                        incidents through easy-to-read visual heatmaps.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                            <path d="M4 19V5"/>
-                            <path d="M4 19h16"/>
-                            <path d="m7 15 4-4 3 2 5-6"/>
-                        </svg>
-                    </div>
-
-                    <h3>Safety Trends</h3>
-
-                    <p>
-                        Review patterns by date, crime type, and location to
-                        better understand neighborhood safety trends.
-                    </p>
-
-                </article>
+                    </article>
+                @endforeach
 
             </div>
 

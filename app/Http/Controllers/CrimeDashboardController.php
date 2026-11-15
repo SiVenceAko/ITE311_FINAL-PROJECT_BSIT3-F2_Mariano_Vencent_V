@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Crime;
 use Illuminate\Support\Collection as SupportCollection;
+use Statamic\Facades\GlobalSet;
 
 class CrimeDashboardController extends Controller
 {
@@ -23,7 +24,9 @@ class CrimeDashboardController extends Controller
             ->sort()
             ->values();
 
-        return view('crime-map', compact('crimes', 'crimeTypes'));
+        $crimeMapContent = GlobalSet::findByHandle('crime_map')?->inDefaultSite();
+
+        return view('crime-map', compact('crimes', 'crimeTypes', 'crimeMapContent'));
     }
 
     public function analytics()
@@ -96,6 +99,8 @@ class CrimeDashboardController extends Controller
                 ? $dateRange->min()->format('F Y')
                 : $dateRange->min()->format('M Y').' – '.$dateRange->max()->format('M Y'));
 
+        $analyticsContent = GlobalSet::findByHandle('analytics')?->inDefaultSite();
+
         return view('analytics-dashboard', compact(
             'totalCrimes',
             'riskCounts',
@@ -105,6 +110,7 @@ class CrimeDashboardController extends Controller
             'dailyTrend',
             'maxDailyCount',
             'periodLabel',
+            'analyticsContent',
         ));
     }
 }

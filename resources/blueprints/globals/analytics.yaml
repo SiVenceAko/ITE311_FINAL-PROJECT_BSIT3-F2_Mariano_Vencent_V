@@ -1,0 +1,67 @@
+title: 'Analytics Page Content'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: hero_eyebrow
+            field:
+              type: text
+              display: 'Hero Eyebrow'
+          -
+            handle: hero_title
+            field:
+              type: text
+              display: 'Hero Title'
+          -
+            handle: hero_title_span
+            field:
+              type: text
+              display: 'Hero Title Span'
+          -
+            handle: hero_description
+            field:
+              type: textarea
+              display: 'Hero Description'
+          -
+            handle: hero_status_title
+            field:
+              type: text
+              display: 'Hero Status Title'
+          -
+            handle: hero_status_description
+            field:
+              type: text
+              display: 'Hero Status Description'
+          -
+            handle: heading_eyebrow
+            field:
+              type: text
+              display: 'Heading Eyebrow'
+          -
+            handle: heading_title
+            field:
+              type: text
+              display: 'Heading Title'
+          -
+            handle: heading_description
+            field:
+              type: textarea
+              display: 'Heading Description'
+          -
+            handle: notice_title
+            field:
+              type: text
+              display: 'Notice Title'
+          -
+            handle: notice_description
+            field:
+              type: textarea
+              display: 'Notice Description'
+          -
+            handle: footer_status
+            field:
+              type: text
+              display: 'Footer Status'
