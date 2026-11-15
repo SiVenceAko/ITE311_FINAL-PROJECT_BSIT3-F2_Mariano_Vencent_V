@@ -102,10 +102,6 @@
                 </div>
 
                 <div class="vs-nav-section">
-                                        <a href="{{ cp_route('dashboard') }}" class="vs-nav-link">
-                        <span>Content Management</span>
-                    </a>
-
                     <a href="{{ route('statamic.cp.globals.variables.edit', 'homepage') }}" class="vs-nav-link {{ request()->is('cp/globals/homepage*') ? 'active' : '' }}">
                         <span>Homepage Content</span>
                     </a>
