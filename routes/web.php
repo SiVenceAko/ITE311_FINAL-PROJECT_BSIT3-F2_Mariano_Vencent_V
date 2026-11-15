@@ -10,8 +10,16 @@ Route::get('/', function () {
     $homepage = GlobalSet::findByHandle('homepage')
         ?->inDefaultSite();
 
+    $crimes = \App\Models\Crime::query()
+        ->where('status', 'approved')
+        ->with('barangay')
+        ->orderByDesc('date')
+        ->orderByDesc('id')
+        ->get();
+
     return view('home', [
         'homepage' => $homepage,
+        'crimes' => $crimes,
     ]);
 })->name('home');
 

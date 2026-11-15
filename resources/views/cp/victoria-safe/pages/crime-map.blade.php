@@ -27,7 +27,7 @@
                 <span class="vs-stat-label">Mapped Incidents</span>
                 <span class="vs-stat-icon">⌖</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->count() }}</strong>
             <span class="vs-stat-note">Approved incidents with coordinates</span>
         </div>
 
@@ -36,7 +36,7 @@
                 <span class="vs-stat-label">Visible on Public Map</span>
                 <span class="vs-stat-icon">◉</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->count() }}</strong>
             <span class="vs-stat-note">Published map records</span>
         </div>
 
@@ -45,7 +45,7 @@
                 <span class="vs-stat-label">Missing Coordinates</span>
                 <span class="vs-stat-icon">!</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $missing ?? 0 }}</strong>
             <span class="vs-stat-note">Records needing location verification</span>
         </div>
 
@@ -54,7 +54,7 @@
                 <span class="vs-stat-label">Monitored Areas</span>
                 <span class="vs-stat-icon">▦</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->pluck('barangay_id')->filter()->unique()->count() }}</strong>
             <span class="vs-stat-note">Areas with mapped incidents</span>
         </div>
 
@@ -72,19 +72,7 @@
             <span class="vs-panel-count">Map Preview</span>
         </div>
 
-        <div class="vs-map-placeholder">
-
-            <div class="vs-map-placeholder-content">
-                <div class="vs-map-placeholder-icon">⌖</div>
-                <h3>Crime Map Preview</h3>
-                <p>
-                    The interactive map and incident markers will appear here
-                    when the map service and backend data are connected.
-                </p>
-                <span class="vs-demo-label">Front-end demonstration</span>
-            </div>
-
-        </div>
+        <div id="admin-crime-map" class="vs-admin-map" aria-label="Victoria City incident map"></div>
 
         <div class="vs-map-legend">
             <span><i class="vs-legend-dot vs-legend-red"></i> High-risk incidents</span>
@@ -136,7 +124,7 @@
                 <p>Review location details and public map visibility.</p>
             </div>
 
-            <span class="vs-panel-count">0 Records</span>
+            <span class="vs-panel-count">{{ $crimes->count() }} Records</span>
         </div>
 
         <div class="vs-table-wrapper">
@@ -154,21 +142,27 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td colspan="7" class="vs-empty-cell">
-                            <div class="vs-empty-state">
-                                <div class="vs-empty-icon">⌖</div>
-                                <h3>No mapped incidents yet</h3>
-                                <p>
-                                    Approved incidents with verified coordinates
-                                    will appear here once connected.
-                                </p>
-                                <span class="vs-demo-label">
-                                    Front-end demonstration
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
+                    @forelse ($crimes as $crime)
+                        <tr>
+                            <td>#{{ $crime->id }}</td>
+                            <td>{{ $crime->type ?? 'Unspecified' }}</td>
+                            <td>{{ $crime->barangay?->name ?? 'Unassigned' }}</td>
+                            <td>{{ $crime->latitude }}</td>
+                            <td>{{ $crime->longitude }}</td>
+                            <td>Visible</td>
+                            <td>—</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="vs-empty-cell">
+                                <div class="vs-empty-state">
+                                    <div class="vs-empty-icon">⌖</div>
+                                    <h3>No mapped incidents yet</h3>
+                                    <p>Approved incidents with verified coordinates will appear here.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -219,5 +213,19 @@
         </div>
 
     </section>
+
+    @php
+        $adminMapCrimes = $crimes->map(function ($crime) {
+            return [
+                'id' => $crime->id,
+                'type' => $crime->type,
+                'location' => $crime->barangay?->name,
+                'latitude' => $crime->latitude,
+                'longitude' => $crime->longitude,
+                'risk' => in_array($crime->risk_level, ['high', 'moderate', 'monitored'], true) ? $crime->risk_level : 'monitored',
+            ];
+        })->values();
+    @endphp
+    <script type="application/json" id="admin-crimes-data">{!! $adminMapCrimes->toJson(JSON_UNESCAPED_UNICODE) !!}</script>
 
 @endsection

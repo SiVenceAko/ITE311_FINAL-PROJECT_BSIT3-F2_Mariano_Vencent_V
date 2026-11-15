@@ -54,6 +54,10 @@
         </nav>
 
         <div class="nav-actions">
+            <a href="{{ route('statamic.cp.victoria-safe.dashboard') }}" class="btn btn-secondary">
+                Login
+            </a>
+
             <a href="{{ route('crime-map') }}" class="btn btn-primary">
                 Explore Map
 
@@ -123,19 +127,13 @@
                         <path d="M12 3 5 6v5c0 4.6 2.9 8.2 7 10 4.1-1.8 7-5.4 7-10V6l-7-3Z"/>
                     </svg>
 
-                    Sample information is displayed during front-end development.
+Approved incident data is shown from the latest records.
                 </div>
 
             </div>
 
 
-            <div class="map-preview" id="crime-map" aria-label="Crime map interface preview">
-
-                <div class="map-grid"></div>
-
-                <div class="map-road map-road-one"></div>
-                <div class="map-road map-road-two"></div>
-                <div class="map-road map-road-three"></div>
+            <div class="map-preview home-hero-map" id="home-hero-map" aria-label="Victoria City crime map">
 
                 <div class="map-preview-top">
                     <span class="map-preview-label">
@@ -143,14 +141,9 @@
                     </span>
 
                     <span class="map-live">
-                        Map Preview
+                        Live Map
                     </span>
                 </div>
-
-                <span class="map-marker map-marker-one"></span>
-                <span class="map-marker map-marker-two"></span>
-                <span class="map-marker map-marker-three"></span>
-                <span class="map-marker map-marker-four"></span>
 
                 <div class="map-legend">
                     <span class="legend-item">
@@ -171,6 +164,20 @@
 
             </div>
 
+            @php
+                $homeMapCrimes = ($crimes ?? collect())->map(function ($crime) {
+                    return [
+                        'id' => $crime->id,
+                        'type' => $crime->type,
+                        'location' => $crime->barangay?->name,
+                        'latitude' => $crime->latitude,
+                        'longitude' => $crime->longitude,
+                        'risk' => in_array($crime->risk_level, ['high', 'moderate', 'monitored'], true) ? $crime->risk_level : 'monitored',
+                    ];
+                })->values();
+            @endphp
+            <script type="application/json" id="home-crimes-data">{!! $homeMapCrimes->toJson(JSON_UNESCAPED_UNICODE) !!}</script>
+
         </div>
 
     </section>
@@ -182,30 +189,38 @@
 
             <div class="overview-panel">
 
+                @php
+                    $homeCrimes = $crimes ?? collect();
+                    $homeTotalCrimes = $homeCrimes->count();
+                    $homeThisMonth = $homeCrimes->filter(fn ($c) => $c->date && $c->date->isCurrentMonth())->count();
+                    $homeHighRiskAreas = $homeCrimes->where('risk_level', 'high')->pluck('barangay_id')->filter()->unique()->count();
+                    $homeMonitoredAreas = $homeCrimes->pluck('barangay_id')->filter()->unique()->count();
+                @endphp
+
                 <div class="overview-grid">
 
                     <article class="stat-card">
                         <p class="stat-label">Total Reports</p>
-                        <p class="stat-value">124</p>
-                        <p class="stat-meta">Sample incident records</p>
+                        <p class="stat-value">{{ $homeTotalCrimes }}</p>
+                        <p class="stat-meta">Approved incident records</p>
                     </article>
 
                     <article class="stat-card">
                         <p class="stat-label">Reports This Month</p>
-                        <p class="stat-value">18</p>
-                        <p class="stat-meta">Sample monthly activity</p>
+                        <p class="stat-value">{{ $homeThisMonth }}</p>
+                        <p class="stat-meta">Approved incidents this month</p>
                     </article>
 
                     <article class="stat-card alert">
                         <p class="stat-label">High-Risk Areas</p>
-                        <p class="stat-value">7</p>
-                        <p class="stat-meta">For interface demonstration</p>
+                        <p class="stat-value">{{ $homeHighRiskAreas }}</p>
+                        <p class="stat-meta">Areas identified for monitoring</p>
                     </article>
 
                     <article class="stat-card safe">
                         <p class="stat-label">Areas Monitored</p>
-                        <p class="stat-value">12</p>
-                        <p class="stat-meta">Sample coverage overview</p>
+                        <p class="stat-value">{{ $homeMonitoredAreas }}</p>
+                        <p class="stat-meta">Areas included in monitoring</p>
                     </article>
 
                 </div>

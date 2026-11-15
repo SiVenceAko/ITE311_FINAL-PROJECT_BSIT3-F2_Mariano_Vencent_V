@@ -27,7 +27,7 @@
                 <span class="vs-stat-label">Total Requests</span>
                 <span class="vs-stat-icon">▤</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $counts['total'] ?? 0 }}</strong>
             <span class="vs-stat-note">All submitted reports</span>
         </div>
 
@@ -36,7 +36,7 @@
                 <span class="vs-stat-label">Pending Review</span>
                 <span class="vs-stat-icon">◷</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $counts['pending'] ?? 0 }}</strong>
             <span class="vs-stat-note">Awaiting administrator review</span>
         </div>
 
@@ -45,7 +45,7 @@
                 <span class="vs-stat-label">Approved</span>
                 <span class="vs-stat-icon">✓</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $counts['approved'] ?? 0 }}</strong>
             <span class="vs-stat-note">Approved crime reports</span>
         </div>
 
@@ -54,7 +54,7 @@
                 <span class="vs-stat-label">Rejected</span>
                 <span class="vs-stat-icon">×</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $counts['rejected'] ?? 0 }}</strong>
             <span class="vs-stat-note">Reports not accepted</span>
         </div>
 
@@ -69,23 +69,21 @@
                 <p>Review the information provided in each crime report.</p>
             </div>
 
-            <span class="vs-panel-count">0 Requests</span>
+            <span class="vs-panel-count">{{ $counts['total'] ?? 0 }} Requests</span>
         </div>
 
         <!-- Filters -->
         <div class="vs-filter-bar">
 
             <div class="vs-search-field">
-                <span>⌕</span>
-                <input
+                <span>⌕</span>                    <input
                     type="search"
                     placeholder="Search report ID or crime type..."
                     aria-label="Search crime requests"
-                    disabled
                 >
             </div>
 
-            <select aria-label="Filter by status" disabled>
+            <select aria-label="Filter by status">
                 <option>All Statuses</option>
                 <option>Pending</option>
                 <option>Approved</option>
@@ -93,7 +91,7 @@
                 <option>Possible Duplicate</option>
             </select>
 
-            <select aria-label="Filter by crime type" disabled>
+            <select aria-label="Filter by crime type">
                 <option>All Crime Types</option>
             </select>
 
@@ -114,21 +112,39 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td colspan="6" class="vs-empty-cell">
-                            <div class="vs-empty-state">
-                                <div class="vs-empty-icon">▤</div>
-                                <h3>No crime requests yet</h3>
-                                <p>
-                                    Submitted crime reports will appear here
-                                    when the reporting feature is connected.
-                                </p>
-                                <span class="vs-demo-label">
-                                    Front-end demonstration
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
+                    @forelse ($crimes as $crime)
+                        <tr>
+                            <td>#{{ $crime->id }}</td>
+                            <td>{{ $crime->type ?? 'Unspecified' }}</td>
+                            <td>{{ $crime->barangay?->name ?? 'Unassigned' }}</td>
+                            <td>{{ $crime->date?->format('M d, Y') ?? 'No date' }}</td>
+                            <td>{{ ucfirst($crime->status) }}</td>
+                            <td>
+                                @if ($crime->status === 'pending')
+                                    <form method="POST" action="{{ route('statamic.cp.victoria-safe.crime-requests.approve', $crime) }}" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="vs-button vs-button-secondary">Approve</button>
+                                    </form>
+                                    <form method="POST" action="{{ route('statamic.cp.victoria-safe.crime-requests.reject', $crime) }}" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="vs-button vs-button-secondary">Reject</button>
+                                    </form>
+                                @else
+                                    —
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="vs-empty-cell">
+                                <div class="vs-empty-state">
+                                    <div class="vs-empty-icon">▤</div>
+                                    <h3>No crime requests yet</h3>
+                                    <p>Submitted crime reports will appear here.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

@@ -65,6 +65,10 @@
             </nav>
 
             <div class="nav-actions">
+                <a href="{{ route('statamic.cp.victoria-safe.dashboard') }}" class="btn btn-secondary">
+                    Login
+                </a>
+
                 <a href="{{ route('crime-reports.create') }}" class="btn btn-primary">
                     Report Incident
                 </a>

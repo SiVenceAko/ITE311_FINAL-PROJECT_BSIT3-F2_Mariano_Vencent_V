@@ -1,6 +1,163 @@
 import L from 'leaflet';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const homeHeroMap = document.querySelector('#home-hero-map');
+
+    // Home page hero: render a live Leaflet map.
+    if (homeHeroMap) {
+        const homeMap = L.map(homeHeroMap, { zoomControl: true }).setView(
+            [13.1733849, 121.2787746],
+            13
+        );
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+        }).addTo(homeMap);
+
+        const riskColors = {
+            high: getComputedStyle(document.documentElement)
+                .getPropertyValue('--color-danger')
+                .trim(),
+            moderate: getComputedStyle(document.documentElement)
+                .getPropertyValue('--color-warning')
+                .trim(),
+            monitored: getComputedStyle(document.documentElement)
+                .getPropertyValue('--color-primary-600')
+                .trim(),
+        };
+
+        let crimes = [];
+
+        try {
+            const dataElement = document.querySelector('#home-crimes-data');
+
+            if (dataElement) {
+                crimes = JSON.parse(dataElement.textContent || '[]');
+            }
+        } catch (error) {
+            crimes = [];
+        }
+
+        const markers = [];
+
+        crimes.forEach((crime) => {
+            const latitude = Number.parseFloat(crime.latitude);
+            const longitude = Number.parseFloat(crime.longitude);
+
+            if (
+                !Number.isFinite(latitude) ||
+                !Number.isFinite(longitude) ||
+                latitude < -90 ||
+                latitude > 90 ||
+                longitude < -180 ||
+                longitude > 180
+            ) {
+                return;
+            }
+
+            const marker = L.circleMarker([latitude, longitude], {
+                radius: 8,
+                color: '#ffffff',
+                weight: 2,
+                fillColor:
+                    riskColors[crime.risk] || riskColors.monitored,
+                fillOpacity: 0.95,
+            });
+
+            marker.addTo(homeMap);
+            markers.push(marker);
+        });
+
+        if (markers.length > 0) {
+            const bounds = L.featureGroup(markers).getBounds();
+            homeMap.fitBounds(bounds, { maxZoom: 14, padding: [24, 24] });
+        }
+
+        return;
+    }
+
+    const adminCrimeMap = document.querySelector('#admin-crime-map');
+
+    // Admin Crime Map page: render a live Leaflet map.
+    if (adminCrimeMap) {
+        const adminMap = L.map(adminCrimeMap).setView(
+            [13.1733849, 121.2787746],
+            14
+        );
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+        }).addTo(adminMap);
+
+        const riskColors = {
+            high: getComputedStyle(document.documentElement)
+                .getPropertyValue('--color-danger')
+                .trim(),
+            moderate: getComputedStyle(document.documentElement)
+                .getPropertyValue('--color-warning')
+                .trim(),
+            monitored: getComputedStyle(document.documentElement)
+                .getPropertyValue('--color-primary-600')
+                .trim(),
+        };
+
+        let crimes = [];
+
+        try {
+            const dataElement = document.querySelector('#admin-crimes-data');
+
+            if (dataElement) {
+                crimes = JSON.parse(dataElement.textContent || '[]');
+            }
+        } catch (error) {
+            crimes = [];
+        }
+
+        const markers = [];
+
+        crimes.forEach((crime) => {
+            const latitude = Number.parseFloat(crime.latitude);
+            const longitude = Number.parseFloat(crime.longitude);
+
+            if (
+                !Number.isFinite(latitude) ||
+                !Number.isFinite(longitude) ||
+                latitude < -90 ||
+                latitude > 90 ||
+                longitude < -180 ||
+                longitude > 180
+            ) {
+                return;
+            }
+
+            const marker = L.circleMarker([latitude, longitude], {
+                radius: 9,
+                color: '#ffffff',
+                weight: 2,
+                fillColor:
+                    riskColors[crime.risk] || riskColors.monitored,
+                fillOpacity: 0.95,
+            });
+
+            const tooltip = document.createElement('span');
+            tooltip.textContent = `${crime.type || 'Unspecified'} — ${crime.location || 'Unassigned'}`;
+            marker.bindTooltip(tooltip);
+            marker.addTo(adminMap);
+            markers.push(marker);
+        });
+
+        if (markers.length > 0) {
+            const bounds = L.featureGroup(markers).getBounds();
+            adminMap.fitBounds(bounds, { maxZoom: 15, padding: [24, 24] });
+        }
+
+        return;
+    }
+
     const crimeMapPage = document.querySelector('.crime-map-page');
 
     // Run only on the Crime Map page.

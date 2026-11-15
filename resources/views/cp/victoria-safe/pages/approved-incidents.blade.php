@@ -27,7 +27,7 @@
                 <span class="vs-stat-label">Total Approved</span>
                 <span class="vs-stat-icon">✓</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->count() }}</strong>
             <span class="vs-stat-note">All approved incident records</span>
         </div>
 
@@ -36,7 +36,7 @@
                 <span class="vs-stat-label">Published</span>
                 <span class="vs-stat-icon">◉</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->whereNotNull('latitude')->whereNotNull('longitude')->count() }}</strong>
             <span class="vs-stat-note">Visible on the public platform</span>
         </div>
 
@@ -45,7 +45,7 @@
                 <span class="vs-stat-label">Unpublished</span>
                 <span class="vs-stat-icon">◷</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->where(fn($c) => is_null($c->latitude) || is_null($c->longitude))->count() }}</strong>
             <span class="vs-stat-note">Approved but not yet published</span>
         </div>
 
@@ -54,7 +54,7 @@
                 <span class="vs-stat-label">Recently Approved</span>
                 <span class="vs-stat-icon">↗</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->filter(fn($c) => $c->updated_at?->isCurrentMonth())->count() }}</strong>
             <span class="vs-stat-note">Approved this month</span>
         </div>
 
@@ -69,7 +69,7 @@
                 <p>View and manage approved crime incident information.</p>
             </div>
 
-            <span class="vs-panel-count">0 Incidents</span>
+            <span class="vs-panel-count">{{ $crimes->count() }} Incidents</span>
         </div>
 
         <!-- Filters -->
@@ -112,21 +112,27 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td colspan="7" class="vs-empty-cell">
-                            <div class="vs-empty-state">
-                                <div class="vs-empty-icon">✓</div>
-                                <h3>No approved incidents yet</h3>
-                                <p>
-                                    Verified and approved crime reports will
-                                    appear here once the backend is connected.
-                                </p>
-                                <span class="vs-demo-label">
-                                    Front-end demonstration
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
+                    @forelse ($crimes as $crime)
+                        <tr>
+                            <td>#{{ $crime->id }}</td>
+                            <td>{{ $crime->type ?? 'Unspecified' }}</td>
+                            <td>{{ $crime->barangay?->name ?? 'Unassigned' }}</td>
+                            <td>{{ $crime->date?->format('M d, Y') ?? 'No date' }}</td>
+                            <td>{{ $crime->updated_at?->format('M d, Y') ?? '—' }}</td>
+                            <td>{{ $crime->latitude && $crime->longitude ? 'Published' : 'Unpublished' }}</td>
+                            <td>—</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="vs-empty-cell">
+                                <div class="vs-empty-state">
+                                    <div class="vs-empty-icon">✓</div>
+                                    <h3>No approved incidents yet</h3>
+                                    <p>Verified and approved crime reports will appear here.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

@@ -27,7 +27,7 @@
                 <span>Pending Requests</span>
                 <div class="vs-stat-icon orange">◷</div>
             </div>
-            <h2>0</h2>
+            <h2>{{ $pending ?? 0 }}</h2>
             <p>Awaiting admin review</p>
             <div class="vs-stat-footer">
                 <span class="vs-stat-indicator orange-text">●</span>
@@ -40,7 +40,7 @@
                 <span>Approved Reports</span>
                 <div class="vs-stat-icon green">✓</div>
             </div>
-            <h2>0</h2>
+            <h2>{{ $approved ?? 0 }}</h2>
             <p>Approved submissions</p>
             <div class="vs-stat-footer">
                 <span class="vs-stat-indicator green-text">●</span>
@@ -53,7 +53,7 @@
                 <span>Flagged Duplicates</span>
                 <div class="vs-stat-icon red">⚑</div>
             </div>
-            <h2>0</h2>
+            <h2>{{ $pending ?? 0 }}</h2>
             <p>Potential duplicate reports</p>
             <div class="vs-stat-footer">
                 <span class="vs-stat-indicator red-text">●</span>
@@ -66,7 +66,7 @@
                 <span>Published Incidents</span>
                 <div class="vs-stat-icon blue">⌖</div>
             </div>
-            <h2>0</h2>
+            <h2>{{ $published ?? 0 }}</h2>
             <p>Visible on public crime map</p>
             <div class="vs-stat-footer">
                 <span class="vs-stat-indicator blue-text">●</span>
@@ -161,11 +161,36 @@
             </a>
         </div>
 
+        @if (($recent ?? collect())->isEmpty())
         <div class="vs-empty-state">
             <div class="vs-empty-icon">▤</div>
             <strong>No crime requests yet</strong>
             <p>Newly submitted reports will appear here for review.</p>
         </div>
+        @else
+        <div class="vs-table-wrapper">
+            <table class="vs-table">
+                <thead>
+                    <tr>
+                        <th>REPORT ID</th>
+                        <th>CRIME TYPE</th>
+                        <th>LOCATION</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($recent as $crime)
+                        <tr>
+                            <td>#{{ $crime->id }}</td>
+                            <td>{{ $crime->type ?? 'Unspecified' }}</td>
+                            <td>{{ $crime->barangay?->name ?? 'Unassigned' }}</td>
+                            <td>{{ ucfirst($crime->status) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
 
     </section>
 

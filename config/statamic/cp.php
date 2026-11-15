@@ -116,13 +116,13 @@ return [
     |
     */
 
-    'custom_cms_name' => env('STATAMIC_CUSTOM_CMS_NAME', 'Statamic'),
+    'custom_cms_name' => env('STATAMIC_CUSTOM_CMS_NAME', 'Victoria Safe'),
 
     'custom_logo_url' => env('STATAMIC_CUSTOM_LOGO_URL', null),
 
     'custom_dark_logo_url' => env('STATAMIC_CUSTOM_DARK_LOGO_URL', null),
 
-    'custom_logo_text' => env('STATAMIC_CUSTOM_LOGO_TEXT', null),
+    'custom_logo_text' => env('STATAMIC_CUSTOM_LOGO_TEXT', 'Victoria Safe'),
 
     'custom_favicon_url' => env('STATAMIC_CUSTOM_FAVICON_URL', null),
 

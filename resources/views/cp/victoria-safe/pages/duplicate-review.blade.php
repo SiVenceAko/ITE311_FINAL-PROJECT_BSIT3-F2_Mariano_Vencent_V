@@ -21,7 +21,7 @@
                 <span class="vs-stat-label">Flagged Reports</span>
                 <span class="vs-stat-icon">⚑</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->count() }}</strong>
             <span class="vs-stat-note">Reports marked for duplicate checking</span>
         </div>
 
@@ -30,7 +30,7 @@
                 <span class="vs-stat-label">Under Review</span>
                 <span class="vs-stat-icon">◷</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $crimes->count() }}</strong>
             <span class="vs-stat-note">Awaiting administrator verification</span>
         </div>
 
@@ -63,7 +63,7 @@
                 <p>Compare flagged reports before confirming their status.</p>
             </div>
 
-            <span class="vs-panel-count">0 Flagged</span>
+            <span class="vs-panel-count">{{ $crimes->count() }} Flagged</span>
         </div>
 
         <div class="vs-filter-bar">
@@ -102,21 +102,27 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td colspan="7" class="vs-empty-cell">
-                            <div class="vs-empty-state">
-                                <div class="vs-empty-icon">◎</div>
-                                <h3>No flagged reports</h3>
-                                <p>
-                                    Possible duplicate submissions will appear
-                                    here when duplicate detection is connected.
-                                </p>
-                                <span class="vs-demo-label">
-                                    Front-end demonstration
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
+                    @forelse ($crimes as $crime)
+                        <tr>
+                            <td>#{{ $crime->id }}</td>
+                            <td>{{ $crime->type ?? 'Unspecified' }}</td>
+                            <td>{{ $crime->barangay?->name ?? 'Unassigned' }}</td>
+                            <td>{{ $crime->date?->format('M d, Y') ?? 'No date' }}</td>
+                            <td>Pending review</td>
+                            <td>Pending</td>
+                            <td>—</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="vs-empty-cell">
+                                <div class="vs-empty-state">
+                                    <div class="vs-empty-icon">◎</div>
+                                    <h3>No flagged reports</h3>
+                                    <p>Pending reports will appear here for duplicate review.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

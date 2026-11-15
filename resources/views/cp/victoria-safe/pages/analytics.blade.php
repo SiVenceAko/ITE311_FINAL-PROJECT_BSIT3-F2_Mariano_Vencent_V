@@ -27,7 +27,7 @@
                 <span class="vs-stat-label">Total Incidents</span>
                 <span class="vs-stat-icon">▤</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $total ?? 0 }}</strong>
             <span class="vs-stat-note">Approved incident records</span>
         </div>
 
@@ -36,7 +36,7 @@
                 <span class="vs-stat-label">This Month</span>
                 <span class="vs-stat-icon">▦</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $thisMonth ?? 0 }}</strong>
             <span class="vs-stat-note">Approved incidents this month</span>
         </div>
 
@@ -45,7 +45,7 @@
                 <span class="vs-stat-label">High-Risk Areas</span>
                 <span class="vs-stat-icon">⚑</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $highRiskAreas ?? 0 }}</strong>
             <span class="vs-stat-note">Areas identified for monitoring</span>
         </div>
 
@@ -54,7 +54,7 @@
                 <span class="vs-stat-label">Monitored Areas</span>
                 <span class="vs-stat-icon">⌖</span>
             </div>
-            <strong class="vs-stat-value">0</strong>
+            <strong class="vs-stat-value">{{ $monitoredAreas ?? 0 }}</strong>
             <span class="vs-stat-note">Areas included in monitoring</span>
         </div>
 

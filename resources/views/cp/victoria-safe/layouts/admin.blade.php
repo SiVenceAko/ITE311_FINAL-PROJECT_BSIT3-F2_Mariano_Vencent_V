@@ -63,69 +63,58 @@
                 </button>
             </div>
 
+            <div class="vs-nav-separator"></div>
+
             <nav class="vs-sidebar-nav">
 
                 <div class="vs-nav-section">
-                    <span class="vs-nav-heading">MAIN MENU</span>
-
-                    <a href="{{ route('statamic.cp.victoria-safe.dashboard') }}"
+                                        <a href="{{ route('statamic.cp.victoria-safe.dashboard') }}"
                        class="vs-nav-link {{ request()->routeIs('statamic.cp.victoria-safe.dashboard') ? 'active' : '' }}">
-                        <span class="vs-nav-icon">⌂</span>
                         <span>Dashboard</span>
                     </a>
 
                     <a href="{{ route('statamic.cp.victoria-safe.crime-requests') }}"
                        class="vs-nav-link {{ request()->routeIs('statamic.cp.victoria-safe.crime-requests') ? 'active' : '' }}">
-                        <span class="vs-nav-icon">▤</span>
                         <span>Crime Requests</span>
                     </a>
 
                     <a href="{{ route('statamic.cp.victoria-safe.duplicate-review') }}"
                        class="vs-nav-link {{ request()->routeIs('statamic.cp.victoria-safe.duplicate-review') ? 'active' : '' }}">
-                        <span class="vs-nav-icon">◎</span>
                         <span>Duplicate Review</span>
                     </a>
 
                     <a href="{{ route('statamic.cp.victoria-safe.approved-incidents') }}"
                        class="vs-nav-link {{ request()->routeIs('statamic.cp.victoria-safe.approved-incidents') ? 'active' : '' }}">
-                        <span class="vs-nav-icon">✓</span>
                         <span>Approved Incidents</span>
                     </a>
                 </div>
 
                 <div class="vs-nav-section">
-                    <span class="vs-nav-heading">MONITORING</span>
-
-                    <a href="{{ route('statamic.cp.victoria-safe.crime-map') }}"
+                                        <a href="{{ route('statamic.cp.victoria-safe.crime-map') }}"
                        class="vs-nav-link {{ request()->routeIs('statamic.cp.victoria-safe.crime-map') ? 'active' : '' }}">
-                        <span class="vs-nav-icon">⌖</span>
                         <span>Crime Map</span>
                     </a>
 
                     <a href="{{ route('statamic.cp.victoria-safe.analytics') }}"
                        class="vs-nav-link {{ request()->routeIs('statamic.cp.victoria-safe.analytics') ? 'active' : '' }}">
-                        <span class="vs-nav-icon">▥</span>
                         <span>Analytics</span>
                     </a>
                 </div>
 
                 <div class="vs-nav-section">
-                    <span class="vs-nav-heading">WEBSITE</span>
-
-                    <a href="{{ cp_route('dashboard') }}" class="vs-nav-link">
-                        <span class="vs-nav-icon">⚙</span>
+                                        <a href="{{ cp_route('dashboard') }}" class="vs-nav-link">
                         <span>Content Management</span>
                     </a>
                 </div>
 
             </nav>
 
-            <div class="vs-sidebar-bottom">
-                <div class="vs-workspace-label">ADMIN WORKSPACE</div>
+            <div class="vs-nav-separator"></div>
 
-                <a href="{{ cp_route('dashboard') }}" class="vs-back-link">
-                    <span>←</span>
-                    <span>Back to Statamic CP</span>
+            <div class="vs-sidebar-bottom">
+                <a href="{{ cp_route('logout') }}" class="vs-back-link vs-logout-button">
+                    <span>⏻</span>
+                    <span>Log Out</span>
                 </a>
             </div>
 

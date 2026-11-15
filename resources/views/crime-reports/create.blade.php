@@ -12,7 +12,12 @@
     <header class="site-header crime-map-header">
         <div class="container navbar">
             <a href="{{ route('home') }}" class="brand" aria-label="Victoria Safe Home">
-                <span class="brand-mark" aria-hidden="true">VS</span>
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6l-7-3Z"/>
+                        <path d="m9.5 12 1.7 1.7 3.6-4"/>
+                    </svg>
+                </span>
                 <span class="brand-text">
                     <span class="brand-name">Victoria Safe</span>
                     <span class="brand-subtitle">Crime Mapping System</span>
@@ -23,7 +28,27 @@
                 <a href="{{ route('home') }}" class="nav-link">Home</a>
                 <a href="{{ route('crime-map') }}" class="nav-link">Crime Map</a>
                 <a href="{{ route('analytics-dashboard') }}" class="nav-link">Analytics</a>
+                <a href="{{ route('crime-reports.create') }}" class="nav-link active">Report Incident</a>
+                <a href="{{ route('home') }}#features" class="nav-link">Features</a>
             </nav>
+
+            <div class="nav-actions">
+                <a href="{{ route('statamic.cp.victoria-safe.dashboard') }}" class="btn btn-secondary">
+                    Login
+                </a>
+
+                <a href="{{ route('crime-map') }}" class="btn btn-primary">
+                    Explore Map
+                </a>
+            </div>
+
+            <button class="mobile-menu-button" type="button" aria-label="Open navigation menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 7h16"/>
+                    <path d="M4 12h16"/>
+                    <path d="M4 17h16"/>
+                </svg>
+            </button>
         </div>
     </header>
 
@@ -107,16 +132,15 @@
                         </div>
 
                         <div class="report-field">
-                            <label for="barangay_id">Barangay <span>(optional)</span></label>
-                            <select id="barangay_id" name="barangay_id">
-                                <option value="">Hindi sigurado / hindi nakalista</option>
-                                @foreach ($barangays as $barangay)
-                                    <option value="{{ $barangay->id }}" @selected((string) old('barangay_id') === (string) $barangay->id)>
-                                        {{ $barangay->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('barangay_id') <span class="report-field-error">{{ $message }}</span> @enderror
+                            <label for="barangay">Barangay <span>(optional)</span></label>
+                            <input
+                                id="barangay"
+                                name="barangay"
+                                type="text"
+                                value="{{ old('barangay') }}"
+                                placeholder="Ilagay ang barangay"
+                            >
+                            @error('barangay') <span class="report-field-error">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="report-field report-field-wide">

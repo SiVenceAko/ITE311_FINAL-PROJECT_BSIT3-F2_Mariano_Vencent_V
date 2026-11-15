@@ -23,14 +23,26 @@ class CrimeReportController extends Controller
             'type' => ['required', 'string', 'in:theft,robbery,assault,burglary,vandalism,other'],
             'description' => ['required', 'string', 'max:2000'],
             'date' => ['required', 'date', 'before_or_equal:today'],
+            'barangay' => ['nullable', 'string', 'max:100'],
             'barangay_id' => ['nullable', 'integer', 'exists:barangays,id'],
             'latitude' => ['required', 'numeric', 'between:-90,90'],
             'longitude' => ['required', 'numeric', 'between:-180,180'],
         ]);
 
+        $barangayId = $validated['barangay_id'] ?? null;
+
+        if ($barangayId === null && ! empty($validated['barangay'] ?? null)) {
+            $barangay = Barangay::firstOrCreate(['name' => trim($validated['barangay'])]);
+            $barangayId = $barangay->id;
+        }
+
         $crime = Crime::create([
-            ...$validated,
             'type' => ucfirst($validated['type']),
+            'description' => $validated['description'],
+            'date' => $validated['date'],
+            'barangay_id' => $barangayId,
+            'latitude' => $validated['latitude'],
+            'longitude' => $validated['longitude'],
             'risk_level' => 'monitored',
             'status' => 'pending',
         ]);
