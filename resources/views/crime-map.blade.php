@@ -6,7 +6,7 @@
 
     <meta
         name="description"
-        content="Explore sample crime incident locations and safety information across Victoria City."
+        content="Review database-backed crime incident records and safety information         Across Victoria, Oriental Mindoro."
     >
 
     <title>Crime Map | Victoria City Crime Mapping System</title>
@@ -55,14 +55,18 @@
                     Analytics
                 </a>
 
+                <a href="{{ route('crime-reports.create') }}" class="nav-link">
+                    Report Incident
+                </a>
+
                 <a href="{{ route('home') }}#features" class="nav-link">
                     Features
                 </a>
             </nav>
 
             <div class="nav-actions">
-                <a href="#incident-list" class="btn btn-primary">
-                    View Incidents
+                <a href="{{ route('crime-reports.create') }}" class="btn btn-primary">
+                    Report Incident
                 </a>
             </div>
 
@@ -104,13 +108,13 @@
 
                     <h1 class="crime-map-title">
                         Explore Crime Activity
-                        <span>Across Victoria City.</span>
+                        <span>Across Victoria, Oriental Mindoro.</span>
                     </h1>
 
                     <p class="crime-map-description">
-                        Explore sample incident locations, filter visible reports,
-                        and identify areas that may require closer attention through
-                        a clear map-based safety interface.
+                        Review incident records from the database, filter reports,
+                        and explore the information currently available for each
+                        recorded barangay.
                     </p>
 
                 </div>
@@ -119,8 +123,8 @@
                     <span class="crime-map-status-dot"></span>
 
                     <div>
-                        <strong>Front-end demonstration</strong>
-                        <span>Sample incident information only</span>
+                        <strong>Database-backed records</strong>
+                        <span>Incident details are loaded from the database</span>
                     </div>
                 </div>
 
@@ -140,8 +144,7 @@
                         <h2>Crime Incident Map</h2>
 
                         <p>
-                            Use the available filters to explore sample incidents
-                            displayed across the map.
+                            Use the available filters to explore recorded incidents.
                         </p>
                     </div>
 
@@ -150,11 +153,11 @@
                             class="map-summary-number"
                             id="visible-incident-count"
                         >
-                            3
+                            {{ $crimes->count() }}
                         </span>
 
                         <span class="map-summary-label">
-                            Visible sample incidents
+                            Total incidents
                         </span>
                     </div>
 
@@ -226,11 +229,11 @@
 
                             <select id="crime-type">
                                 <option value="all">All Crime Types</option>
-                                <option value="theft">Theft</option>
-                                <option value="robbery">Robbery</option>
-                                <option value="assault">Assault</option>
-                                <option value="burglary">Burglary</option>
-                                <option value="vandalism">Vandalism</option>
+                                @foreach ($crimeTypes as $crimeType)
+                                    <option value="{{ strtolower($crimeType) }}">
+                                        {{ ucfirst($crimeType) }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -298,8 +301,7 @@
                             </svg>
 
                             <p>
-                                Filters currently use sample front-end incident
-                                data for demonstration purposes.
+                                These records are loaded from the project database.
                             </p>
                         </div>
 
@@ -310,16 +312,6 @@
                     <div class="crime-map-panel">
 
                         <div class="crime-map-canvas">
-
-                            <div class="crime-map-grid"></div>
-
-                            {{-- Mock Roads --}}
-                            <span class="crime-road crime-road-one"></span>
-                            <span class="crime-road crime-road-two"></span>
-                            <span class="crime-road crime-road-three"></span>
-                            <span class="crime-road crime-road-four"></span>
-                            <span class="crime-road crime-road-five"></span>
-
 
                             {{-- Map Top Controls --}}
                             <div class="crime-map-top-controls">
@@ -338,129 +330,30 @@
                                         <circle cx="12" cy="10" r="2.5"/>
                                     </svg>
 
-                                    Victoria City
+                                    Victoria, Oriental Mindoro
                                 </span>
 
-                                <span class="crime-map-demo-badge">
-                                    Demo Map
+                                <span class="crime-map-provider-badge">
+                                    OpenStreetMap
                                 </span>
 
                             </div>
 
+                            <div
+                                id="crime-map"
+                                class="crime-map-leaflet"
+                                role="application"
+                                aria-label="Interactive map of Victoria, Oriental Mindoro with mapped crime incidents"
+                            ></div>
 
-                            {{-- Map Labels --}}
-                            <span class="map-area-label map-area-one">
-                                North Area
-                            </span>
-
-                            <span class="map-area-label map-area-two">
-                                Central Area
-                            </span>
-
-                            <span class="map-area-label map-area-three">
-                                South Area
-                            </span>
-
-
-                            {{-- Sample Incident Markers --}}
-                            <button
-                                type="button"
-                                class="incident-marker high marker-one"
-                                data-marker-id="002"
-                                aria-label="View robbery incident in North Area"
+                            <p
+                                class="crime-map-status"
+                                id="crime-map-status"
+                                role="status"
+                                aria-live="polite"
                             >
-                                <span></span>
-                            </button>
-
-                            <button
-                                type="button"
-                                class="incident-marker moderate marker-two"
-                                data-marker-id="001"
-                                aria-label="View theft incident in Central Area"
-                            >
-                                <span></span>
-                            </button>
-
-                            <button
-                                type="button"
-                                class="incident-marker monitored marker-three"
-                                data-marker-id="003"
-                                aria-label="View vandalism incident in South Area"
-                            >
-                                <span></span>
-                            </button>
-
-                            <button
-                                type="button"
-                                class="incident-marker high marker-four"
-                                aria-label="Decorative sample high risk marker"
-                            >
-                                <span></span>
-                            </button>
-
-                            <button
-                                type="button"
-                                class="incident-marker moderate marker-five"
-                                aria-label="Decorative sample moderate risk marker"
-                            >
-                                <span></span>
-                            </button>
-
-                            <button
-                                type="button"
-                                class="incident-marker monitored marker-six"
-                                aria-label="Decorative sample monitored marker"
-                            >
-                                <span></span>
-                            </button>
-
-
-                            {{-- Map Zoom Controls --}}
-                            <div class="map-zoom-controls">
-                                <button
-                                    type="button"
-                                    aria-label="Zoom in"
-                                >
-                                    +
-                                </button>
-
-                                <button
-                                    type="button"
-                                    aria-label="Zoom out"
-                                >
-                                    −
-                                </button>
-                            </div>
-
-
-                            {{-- Legend --}}
-                            <div class="crime-map-legend">
-
-                                <span class="crime-map-legend-title">
-                                    Risk Level
-                                </span>
-
-                                <div class="crime-map-legend-items">
-
-                                    <span>
-                                        <i class="legend-dot low"></i>
-                                        Monitored
-                                    </span>
-
-                                    <span>
-                                        <i class="legend-dot medium"></i>
-                                        Moderate
-                                    </span>
-
-                                    <span>
-                                        <i class="legend-dot high"></i>
-                                        High Risk
-                                    </span>
-
-                                </div>
-
-                            </div>
-
+                                Loading map…
+                            </p>
                         </div>
 
                     </div>
@@ -482,7 +375,7 @@
 
                     <div class="section-heading">
                         <span class="section-eyebrow">
-                            Sample Reports
+                            Database Reports
                         </span>
 
                         <h2 class="section-title">
@@ -490,8 +383,7 @@
                         </h2>
 
                         <p class="section-description">
-                            Sample records shown for interface development.
-                            These entries do not represent actual crime reports.
+                            Reports currently stored in the project's database.
                         </p>
                     </div>
 
@@ -499,7 +391,7 @@
                         class="incident-count"
                         id="incident-count-label"
                     >
-                        3 sample records
+                        {{ $crimes->count() }} incidents
                     </span>
 
                 </div>
@@ -516,154 +408,58 @@
                     </div>
 
 
-                    {{-- Sample Incident #001 --}}
-                    <article
-                        class="incident-row"
-                        data-incident-row
-                        data-id="001"
-                        data-type="theft"
-                        data-location="central area"
-                        data-date="2026-10-24"
-                        data-risk="moderate"
-                    >
-                        <div class="incident-type">
-                            <span class="incident-icon theft">
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="1.8"
-                                    aria-hidden="true"
-                                >
-                                    <path d="M5 8h14l-1 12H6L5 8Z"/>
-                                    <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
-                                </svg>
-                            </span>
-
-                            <div>
-                                <strong>Theft</strong>
-                                <small>Sample Incident #001</small>
-                            </div>
-                        </div>
-
-                        <span>Central Area</span>
-                        <span>Oct. 24, 2026</span>
-
-                        <span>
-                            <span class="risk-badge moderate">
-                                Moderate
-                            </span>
-                        </span>
-
-                        <button
-                            type="button"
-                            class="incident-view-button"
-                            data-view-incident="001"
+                    @forelse ($crimes as $crime)
+                        @php
+                            $location = $crime->barangay?->name ?? 'Unassigned';
+                            $riskLevel = in_array($crime->risk_level, ['high', 'moderate', 'monitored'], true)
+                                ? $crime->risk_level
+                                : 'monitored';
+                        @endphp
+                        <article
+                            class="incident-row"
+                            data-incident-row
+                            data-id="{{ $crime->id }}"
+                            data-type="{{ strtolower($crime->type ?? 'unspecified') }}"
+                            data-location="{{ strtolower($location) }}"
+                            data-date="{{ $crime->date?->format('Y-m-d') }}"
+                            data-risk="{{ $riskLevel }}"
+                            data-latitude="{{ $crime->latitude }}"
+                            data-longitude="{{ $crime->longitude }}"
+                            data-description="{{ $crime->description }}"
                         >
-                            View Details
-                        </button>
-                    </article>
+                            <div class="incident-type">
+                                <span class="incident-icon {{ $riskLevel }}" aria-hidden="true">
+                                    {{ strtoupper(substr($crime->type ?? '?', 0, 1)) }}
+                                </span>
 
-
-                    {{-- Sample Incident #002 --}}
-                    <article
-                        class="incident-row"
-                        data-incident-row
-                        data-id="002"
-                        data-type="robbery"
-                        data-location="north area"
-                        data-date="2026-10-21"
-                        data-risk="high"
-                    >
-                        <div class="incident-type">
-                            <span class="incident-icon robbery">
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="1.8"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    aria-hidden="true"
-                                >
-                                    <path d="M12 3v18"/>
-                                    <path d="M17 7H9.5a2.5 2.5 0 0 0 0 5h5a2.5 2.5 0 0 1 0 5H7"/>
-                                </svg>
-                            </span>
-
-                            <div>
-                                <strong>Robbery</strong>
-                                <small>Sample Incident #002</small>
+                                <div>
+                                    <strong>{{ ucfirst($crime->type ?? 'Unspecified') }}</strong>
+                                    <small>Incident #{{ $crime->id }}</small>
+                                </div>
                             </div>
-                        </div>
 
-                        <span>North Area</span>
-                        <span>Oct. 21, 2026</span>
+                            <span>{{ $location }}</span>
+                            <span>{{ $crime->date?->format('M d, Y') ?? 'No date' }}</span>
 
-                        <span>
-                            <span class="risk-badge high">
-                                High Risk
-                            </span>
-                        </span>
-
-                        <button
-                            type="button"
-                            class="incident-view-button"
-                            data-view-incident="002"
-                        >
-                            View Details
-                        </button>
-                    </article>
-
-
-                    {{-- Sample Incident #003 --}}
-                    <article
-                        class="incident-row"
-                        data-incident-row
-                        data-id="003"
-                        data-type="vandalism"
-                        data-location="south area"
-                        data-date="2026-10-18"
-                        data-risk="monitored"
-                    >
-                        <div class="incident-type">
-                            <span class="incident-icon monitored">
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="1.8"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    aria-hidden="true"
-                                >
-                                    <path d="M4 19 10 5l4 9 2-5 4 10"/>
-                                </svg>
+                            <span>
+                                <span class="risk-badge {{ $riskLevel }}">
+                                    {{ $riskLevel === 'high' ? 'High Risk' : ucfirst($riskLevel) }}
+                                </span>
                             </span>
 
-                            <div>
-                                <strong>Vandalism</strong>
-                                <small>Sample Incident #003</small>
-                            </div>
-                        </div>
-
-                        <span>South Area</span>
-                        <span>Oct. 18, 2026</span>
-
-                        <span>
-                            <span class="risk-badge monitored">
-                                Monitored
-                            </span>
-                        </span>
-
-                        <button
-                            type="button"
-                            class="incident-view-button"
-                            data-view-incident="003"
-                        >
-                            View Details
-                        </button>
-                    </article>
+                            <button
+                                type="button"
+                                class="incident-view-button"
+                                data-view-incident="{{ $crime->id }}"
+                            >
+                                View Details
+                            </button>
+                        </article>
+                    @empty
+                        <p class="incident-empty-state">
+                            No incident records are in the database yet.
+                        </p>
+                    @endforelse
 
                 </div>
 
@@ -697,13 +493,12 @@
                         <span>Development Notice</span>
 
                         <h2>
-                            Crime information displayed on this page is sample data.
+                            Crime reports shown here are database records.
                         </h2>
 
                         <p>
-                            Actual incident records and geographic information
-                            will be connected through the project's backend
-                            implementation.
+                            Only incidents with saved coordinates appear on the
+                            map. Confirm reports through official sources.
                         </p>
                     </div>
 
@@ -736,7 +531,7 @@
             <div class="incident-modal-header">
                 <div>
                     <span class="section-eyebrow">
-                        Sample Incident
+                        Database Record
                     </span>
 
                     <h2 id="incident-modal-title">
@@ -781,13 +576,17 @@
                     <strong id="modal-incident-risk">—</strong>
                 </div>
 
+                <div class="incident-detail-item">
+                    <span>Description</span>
+                    <strong id="modal-incident-description">—</strong>
+                </div>
+
                 <div class="incident-modal-notice">
-                    <strong>Development Notice</strong>
+                    <strong>Verification Notice</strong>
 
                     <p>
-                        This is sample incident information used for the
-                        front-end demonstration. Actual crime records will
-                        be provided by the backend implementation.
+                        This page displays stored reports. It does not confirm
+                        whether a report is verified or official.
                     </p>
                 </div>
 
@@ -809,12 +608,12 @@
         <div class="container footer-content">
 
             <p>
-                &copy; {{ date('Y') }} Victoria City Crime Mapping System
+                &copy; {{ date('Y') }} Victoria, Oriental Mindoro Crime Mapping System
             </p>
 
             <div class="footer-status">
                 <span class="footer-status-dot"></span>
-                Front-end demonstration
+                Database-backed records
             </div>
 
         </div>

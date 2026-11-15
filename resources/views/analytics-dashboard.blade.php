@@ -6,7 +6,7 @@
 
     <meta
         name="description"
-        content="View sample crime analytics, risk levels, incident trends, and area comparisons across Victoria City."
+        content="View database-backed crime analytics, risk levels, incident trends, and area comparisons across Victoria City."
     >
 
     <title>Analytics Dashboard | Victoria City Crime Mapping System</title>
@@ -53,6 +53,10 @@
 
                 <a href="{{ route('analytics-dashboard') }}" class="nav-link active">
                     Analytics
+                </a>
+
+                <a href="{{ route('crime-reports.create') }}" class="nav-link">
+                    Report Incident
                 </a>
 
                 <a href="{{ route('home') }}#features" class="nav-link">
@@ -107,9 +111,8 @@
                     </h1>
 
                     <p class="analytics-description">
-                        Review sample crime patterns, compare monitored areas,
-                        and explore visual safety indicators through a clear
-                        analytics interface.
+                        Review crime patterns and area summaries calculated
+                        directly from records stored in the database.
                     </p>
                 </div>
 
@@ -117,8 +120,8 @@
                     <span class="analytics-status-dot"></span>
 
                     <div>
-                        <strong>Sample analytics</strong>
-                        <span>Front-end demonstration data</span>
+                        <strong>Database-backed analytics</strong>
+                        <span>Statistics are computed from stored reports</span>
                     </div>
                 </div>
 
@@ -138,16 +141,16 @@
                             Safety Overview
                         </span>
 
-                        <h2>Victoria City at a Glance</h2>
+                        <h2>Victoria, Oriental Mindoro at a Glance</h2>
 
                         <p>
-                            A summary of sample incident records currently
-                            represented in the front-end demonstration.
+                            A summary of the incident records currently stored
+                            in the project database.
                         </p>
                     </div>
 
                     <span class="analytics-period">
-                        Sample Period · October 2026
+                        {{ $periodLabel }}
                     </span>
 
                 </div>
@@ -176,15 +179,14 @@
                             </span>
 
                             <span class="summary-label">
-                                Sample Records
+                                Total Records
                             </span>
                         </div>
 
-                        <strong class="summary-value">3</strong>
+                        <strong class="summary-value">{{ $totalCrimes }}</strong>
 
                         <p>
-                            Total incidents represented in the current
-                            demonstration dataset.
+                            Total incident records in the database.
                         </p>
                     </article>
 
@@ -212,11 +214,10 @@
                             </span>
                         </div>
 
-                        <strong class="summary-value">1</strong>
+                        <strong class="summary-value">{{ $riskCounts['high'] }}</strong>
 
                         <p>
-                            One sample incident is currently classified
-                            as high risk.
+                            Records currently classified as high risk.
                         </p>
                     </article>
 
@@ -244,11 +245,10 @@
                             </span>
                         </div>
 
-                        <strong class="summary-value">1</strong>
+                        <strong class="summary-value">{{ $riskCounts['moderate'] }}</strong>
 
                         <p>
-                            One sample incident is categorized under
-                            moderate risk.
+                            Records currently categorized as moderate risk.
                         </p>
                     </article>
 
@@ -275,11 +275,10 @@
                             </span>
                         </div>
 
-                        <strong class="summary-value">1</strong>
+                        <strong class="summary-value">{{ $riskCounts['monitored'] }}</strong>
 
                         <p>
-                            One sample incident is represented as a
-                            monitored risk level.
+                            Records currently classified as monitored.
                         </p>
                     </article>
 
@@ -302,59 +301,31 @@
                             </div>
 
                             <span class="panel-badge">
-                                3 Records
+                                {{ $totalCrimes }} Records
                             </span>
                         </div>
 
 
                         <div class="distribution-list">
 
+                            @forelse ($crimeTypeDistribution as $distribution)
                             <div class="distribution-item">
                                 <div class="distribution-info">
                                     <span>
                                         <i class="distribution-dot theft"></i>
-                                        Theft
+                                        {{ ucfirst($distribution['type']) }}
                                     </span>
 
-                                    <strong>1</strong>
+                                    <strong>{{ $distribution['count'] }}</strong>
                                 </div>
 
                                 <div class="distribution-track">
-                                    <span style="width: 33.33%"></span>
+                                    <span style="width: {{ $distribution['percentage'] }}%"></span>
                                 </div>
                             </div>
-
-
-                            <div class="distribution-item">
-                                <div class="distribution-info">
-                                    <span>
-                                        <i class="distribution-dot robbery"></i>
-                                        Robbery
-                                    </span>
-
-                                    <strong>1</strong>
-                                </div>
-
-                                <div class="distribution-track">
-                                    <span style="width: 33.33%"></span>
-                                </div>
-                            </div>
-
-
-                            <div class="distribution-item">
-                                <div class="distribution-info">
-                                    <span>
-                                        <i class="distribution-dot vandalism"></i>
-                                        Vandalism
-                                    </span>
-
-                                    <strong>1</strong>
-                                </div>
-
-                                <div class="distribution-track">
-                                    <span style="width: 33.33%"></span>
-                                </div>
-                            </div>
+                            @empty
+                                <p>No crime records to summarize yet.</p>
+                            @endforelse
 
                         </div>
 
@@ -377,9 +348,12 @@
 
                         <div class="risk-visual">
 
-                            <div class="risk-donut">
+                            <div
+                                class="risk-donut"
+                                style="background: conic-gradient(var(--color-danger) 0% {{ $riskPercentages['high'] }}%, var(--color-warning) {{ $riskPercentages['high'] }}% {{ $riskPercentages['high'] + $riskPercentages['moderate'] }}%, var(--color-primary-500) {{ $riskPercentages['high'] + $riskPercentages['moderate'] }}% 100%)"
+                            >
                                 <div class="risk-donut-center">
-                                    <strong>3</strong>
+                                    <strong>{{ $totalCrimes }}</strong>
                                     <span>Incidents</span>
                                 </div>
                             </div>
@@ -393,7 +367,7 @@
                                         High Risk
                                     </span>
 
-                                    <strong>1</strong>
+                                    <strong>{{ $riskCounts['high'] }}</strong>
                                 </div>
 
                                 <div>
@@ -402,7 +376,7 @@
                                         Moderate
                                     </span>
 
-                                    <strong>1</strong>
+                                    <strong>{{ $riskCounts['moderate'] }}</strong>
                                 </div>
 
                                 <div>
@@ -411,7 +385,7 @@
                                         Monitored
                                     </span>
 
-                                    <strong>1</strong>
+                                    <strong>{{ $riskCounts['monitored'] }}</strong>
                                 </div>
 
                             </div>
@@ -430,11 +404,11 @@
                                     Incident Activity
                                 </span>
 
-                                <h3>Sample Incident Trend</h3>
+                                <h3>Incident Trend</h3>
                             </div>
 
                             <span class="panel-badge">
-                                October 2026
+                                {{ $periodLabel }}
                             </span>
                         </div>
 
@@ -442,8 +416,8 @@
                         <div class="trend-chart">
 
                             <div class="trend-y-axis">
-                                <span>3</span>
-                                <span>2</span>
+                                <span>{{ $maxDailyCount }}</span>
+                                <span>{{ max(1, (int) ceil($maxDailyCount / 2)) }}</span>
                                 <span>1</span>
                                 <span>0</span>
                             </div>
@@ -458,39 +432,18 @@
                                 </div>
 
                                 <div class="trend-bars">
-
-                                    <div class="trend-bar-group">
-                                        <span
-                                            class="trend-bar"
-                                            style="height: 28%"
-                                        ></span>
-                                        <small>Oct 18</small>
-                                    </div>
-
-                                    <div class="trend-bar-group">
-                                        <span
-                                            class="trend-bar"
-                                            style="height: 42%"
-                                        ></span>
-                                        <small>Oct 21</small>
-                                    </div>
-
-                                    <div class="trend-bar-group">
-                                        <span
-                                            class="trend-bar"
-                                            style="height: 58%"
-                                        ></span>
-                                        <small>Oct 24</small>
-                                    </div>
-
-                                    <div class="trend-bar-group">
-                                        <span
-                                            class="trend-bar empty"
-                                            style="height: 8%"
-                                        ></span>
-                                        <small>Oct 27</small>
-                                    </div>
-
+                                    @forelse ($dailyTrend as $day)
+                                        <div class="trend-bar-group">
+                                            <span
+                                                class="trend-bar"
+                                                style="height: {{ max(8, $day['count'] / $maxDailyCount * 100) }}%"
+                                                title="{{ $day['count'] }} incidents"
+                                            ></span>
+                                            <small>{{ $day['date'] }}</small>
+                                        </div>
+                                    @empty
+                                        <p>No dated incident records to chart.</p>
+                                    @endforelse
                                 </div>
 
                             </div>
@@ -516,46 +469,22 @@
 
                         <div class="area-comparison-list">
 
-                            <div class="area-comparison-item">
-                                <span class="area-rank">01</span>
+                            @forelse ($areaComparison as $area)
+                                <div class="area-comparison-item">
+                                    <span class="area-rank">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
 
-                                <div class="area-comparison-copy">
-                                    <strong>North Area</strong>
-                                    <span>1 sample incident</span>
+                                    <div class="area-comparison-copy">
+                                        <strong>{{ $area['name'] }}</strong>
+                                        <span>{{ $area['count'] }} {{ $area['count'] === 1 ? 'incident' : 'incidents' }}</span>
+                                    </div>
+
+                                    <span class="area-risk {{ $area['risk_level'] }}">
+                                        {{ $area['risk_level'] === 'high' ? 'High Risk' : ucfirst($area['risk_level']) }}
+                                    </span>
                                 </div>
-
-                                <span class="area-risk high">
-                                    High Risk
-                                </span>
-                            </div>
-
-
-                            <div class="area-comparison-item">
-                                <span class="area-rank">02</span>
-
-                                <div class="area-comparison-copy">
-                                    <strong>Central Area</strong>
-                                    <span>1 sample incident</span>
-                                </div>
-
-                                <span class="area-risk moderate">
-                                    Moderate
-                                </span>
-                            </div>
-
-
-                            <div class="area-comparison-item">
-                                <span class="area-rank">03</span>
-
-                                <div class="area-comparison-copy">
-                                    <strong>South Area</strong>
-                                    <span>1 sample incident</span>
-                                </div>
-
-                                <span class="area-risk monitored">
-                                    Monitored
-                                </span>
-                            </div>
+                            @empty
+                                <p>No barangay records to compare yet.</p>
+                            @endforelse
 
                         </div>
 
@@ -590,16 +519,15 @@
                     </div>
 
                     <div>
-                        <span>Development Notice</span>
+                        <span>Data Notice</span>
 
                         <h2>
-                            Analytics currently use sample front-end data.
+                            Analytics are calculated from stored database records.
                         </h2>
 
                         <p>
-                            Actual crime statistics, geographic records,
-                            and historical trends will be supplied through
-                            the backend implementation of the system.
+                            Confirm reports with official sources. This dashboard
+                            summarizes stored information and does not verify it.
                         </p>
                     </div>
 
@@ -628,7 +556,7 @@
 
             <div class="footer-status">
                 <span class="footer-status-dot"></span>
-                Front-end demonstration
+                Database-backed analytics
             </div>
 
         </div>
