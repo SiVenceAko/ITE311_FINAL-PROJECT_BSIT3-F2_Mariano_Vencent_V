@@ -60,6 +60,16 @@
             <a href="{{ route('analytics-dashboard') }}" class="nav-link">Analytics</a>
             <a href="{{ route('crime-reports.create') }}" class="nav-link">Report Incident</a>
             <a href="#features" class="nav-link">Features</a>
+
+            <div class="nav-menu-actions">
+                <a href="{{ route('statamic.cp.victoria-safe.dashboard') }}" class="btn btn-secondary">Login</a>
+                <a href="{{ route('crime-map') }}" class="btn btn-primary">
+                    Explore Map
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                </a>
+            </div>
         </nav>
 
         <div class="nav-actions">

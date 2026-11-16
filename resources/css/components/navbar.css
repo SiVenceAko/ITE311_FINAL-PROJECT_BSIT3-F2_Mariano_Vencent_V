@@ -130,6 +130,10 @@ body.mobile-menu-open {
    Mobile Navigation
    ========================================================= */
 
+.nav-menu-actions {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .navbar {
         flex-wrap: wrap;
@@ -143,7 +147,7 @@ body.mobile-menu-open {
         left: 0;
         display: flex;
         visibility: hidden;
-        overflow: hidden;
+        overflow-y: auto;
         flex-direction: column;
         align-items: stretch;
         gap: 4px;
@@ -166,7 +170,7 @@ body.mobile-menu-open {
 
     .nav-links.is-open {
         visibility: visible;
-        max-height: 420px;
+        max-height: min(70vh, 520px);
         padding: 14px;
         border-color: rgba(255, 255, 255, 0.12);
         opacity: 1;
@@ -198,6 +202,20 @@ body.mobile-menu-open {
 
     .nav-actions {
         display: none;
+    }
+
+    .nav-menu-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-menu-actions .btn {
+        width: 100%;
+        justify-content: center;
     }
 
     .mobile-menu-button {

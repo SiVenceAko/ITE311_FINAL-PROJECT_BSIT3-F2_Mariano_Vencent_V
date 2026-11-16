@@ -62,6 +62,11 @@
                 <a href="{{ route('home') }}#features" class="nav-link">
                     Features
                 </a>
+
+                <div class="nav-menu-actions">
+                    <a href="{{ route('statamic.cp.victoria-safe.dashboard') }}" class="btn btn-secondary">Login</a>
+                    <a href="{{ route('crime-map') }}" class="btn btn-primary">Explore Map</a>
+                </div>
             </nav>
 
             <div class="nav-actions">
