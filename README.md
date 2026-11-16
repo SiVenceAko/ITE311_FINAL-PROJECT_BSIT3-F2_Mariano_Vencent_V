@@ -99,6 +99,37 @@ Keep both terminals running. Open these pages in a browser:
 
 To build frontend assets for use without the Vite development server, run `npm run build`.
 
+## Deploy to Render (Docker)
+
+The repository includes a production `Dockerfile` that builds the Vite assets with Node, installs PHP 8.3 with the `pdo_pgsql` and `pgsql` extensions, and serves `public/` through Apache on the port Render assigns (`$PORT`).
+
+1. Push the project to GitHub. `.env` and `vendor/`, `node_modules/`, `public/build/` are ignored, so no credentials or local build output are committed.
+2. Create a Render Postgres instance in the same region as the web service, then copy its **Internal Database URL**.
+3. Create a **Web Service** from the repo with **Runtime: Docker**. Leave the start command at the image default (`apache2-foreground`) and set the health check path to `/up`.
+4. Add these environment variables to the service:
+
+   | Variable | Value |
+   | --- | --- |
+   | `APP_NAME` | `Victoria Crime Mapping System` |
+   | `APP_ENV` | `production` |
+   | `APP_DEBUG` | `false` |
+   | `APP_KEY` | output of `php artisan key:generate --show` |
+   | `APP_URL` | `https://<your-service>.onrender.com` |
+   | `ASSET_URL` | `https://<your-service>.onrender.com` |
+   | `DB_CONNECTION` | `pgsql` |
+   | `DB_URL` | the Postgres **Internal Database URL** |
+   | `SESSION_DRIVER` | `database` |
+   | `CACHE_STORE` | `database` |
+   | `QUEUE_CONNECTION` | `sync` |
+   | `LOG_CHANNEL` | `stderr` |
+
+   The connection variable must be `DB_URL`: `config/database.php` reads `DB_URL`, not `DATABASE_URL`, and the default connection is SQLite, so both `DB_CONNECTION=pgsql` and `DB_URL` are required. `LOG_CHANNEL=stderr` sends logs to Render's log stream.
+
+   `SESSION_DRIVER=database` is safe here because the base migration creates a `sessions` table. If you switch to `file`, sessions are lost on every restart or deploy because the container filesystem is ephemeral.
+
+5. Set the **Pre-Deploy Command** to `php artisan migrate --force`, or run it once from the service shell after the database is connected. Do not run migrations during the image build.
+6. Deploy, then open `/`, `/crime-map`, `/analytics`, and `/report-crime` to confirm the app and its assets load. If the build or startup fails, check the service logs; startup failures are usually a missing `APP_KEY` or an unreachable `DB_URL`.
+
 ## Review Public Reports
 
 There is currently no staff login or admin review screen. An authorized staff member must review reports in phpMyAdmin (or another trusted database client). Inspect pending reports first:
