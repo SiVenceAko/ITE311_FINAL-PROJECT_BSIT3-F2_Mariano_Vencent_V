@@ -101,7 +101,7 @@ To build frontend assets for use without the Vite development server, run `npm r
 
 ## Deploy to Render (Docker)
 
-The repository includes a production `Dockerfile` that builds the Vite assets with Node, installs PHP 8.3 with the `pdo_pgsql` and `pgsql` extensions, and serves `public/` through Apache on the port Render assigns (`$PORT`).
+The repository includes a production `Dockerfile` that builds the Vite assets with Node, installs PHP 8.3 with the `pdo_pgsql` and `pgsql` extensions, runs outstanding database migrations at startup, and serves `public/` through Apache on the port Render assigns (`$PORT`).
 
 1. Push the project to GitHub. `.env` and `vendor/`, `node_modules/`, `public/build/` are ignored, so no credentials or local build output are committed.
 2. Create a Render Postgres instance in the same region as the web service, then copy its **Internal Database URL**.
@@ -127,7 +127,7 @@ The repository includes a production `Dockerfile` that builds the Vite assets wi
 
    `SESSION_DRIVER=database` is safe here because the base migration creates a `sessions` table. If you switch to `file`, sessions are lost on every restart or deploy because the container filesystem is ephemeral.
 
-5. Set the **Pre-Deploy Command** to `php artisan migrate --force`, or run it once from the service shell after the database is connected. Do not run migrations during the image build.
+5. The startup script runs `php artisan migrate --force` before serving requests. Make sure the database environment variables above are set before deploying. This is used because Render Free does not provide Shell or Pre-Deploy Commands; for paid production deployments, prefer a Pre-Deploy Command instead.
 6. Deploy, then open `/`, `/crime-map`, `/analytics`, and `/report-crime` to confirm the app and its assets load. If the build or startup fails, check the service logs; startup failures are usually a missing `APP_KEY` or an unreachable `DB_URL`.
 
 ## Review Public Reports

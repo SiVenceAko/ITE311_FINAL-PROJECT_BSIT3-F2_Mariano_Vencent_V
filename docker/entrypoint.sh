@@ -16,6 +16,10 @@ mkdir -p \
     storage/framework/views \
     storage/logs
 
+# Run outstanding database migrations at startup because Render Free does not
+# provide a pre-deploy command. This requires the database to be configured.
+php artisan migrate --force
+
 # Build caches at boot: the environment variables Render provides are not
 # available during the image build. route:cache is skipped because the home
 # route in routes/web.php uses a closure, which cannot be serialized.
